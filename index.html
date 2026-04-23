@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevOps Interview Questions</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c10;
+    --surface: #111318;
+    --border: #1e2230;
+    --accent: #00e5a0;
+    --accent2: #0099ff;
+    --accent3: #ff6b35;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --answer-bg: #0d1117;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 1;
+    padding: 60px 40px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(0,229,160,0.05) 0%, transparent 100%);
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 12px;
+    border-radius: 2px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeIn 0.5s ease;
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+    animation: slideUp 0.6s ease;
+  }
+
+  h1 span.green { color: var(--accent); }
+  h1 span.blue { color: var(--accent2); }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    animation: fadeIn 0.8s ease;
+  }
+
+  /* Stats bar */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+    flex-wrap: wrap;
+    animation: fadeIn 1s ease;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Filter bar */
+  .filter-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,12,16,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 40px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-right: 4px;
+  }
+
+  .filter-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,229,160,0.05);
+  }
+
+  .search-wrap {
+    margin-left: auto;
+    position: relative;
+  }
+
+  .search-wrap::before {
+    content: '⌕';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  #search {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 6px 12px 6px 30px;
+    border-radius: 2px;
+    outline: none;
+    width: 220px;
+    transition: border-color 0.2s;
+  }
+
+  #search:focus { border-color: var(--accent2); }
+
+  /* Main content */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* Category header */
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 48px 0 20px;
+  }
+
+  .category-header:first-of-type { margin-top: 0; }
+
+  .category-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .category-title {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .category-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  /* Q&A Card */
+  .qa-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid transparent;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    animation: fadeIn 0.4s ease both;
+  }
+
+  .qa-card:hover {
+    border-left-color: var(--accent);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4), -3px 0 12px rgba(0,229,160,0.08);
+  }
+
+  .qa-card.hidden { display: none; }
+
+  .question-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 18px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    color: var(--text);
+  }
+
+  .q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    padding-top: 3px;
+    min-width: 28px;
+    flex-shrink: 0;
+  }
+
+  .q-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.5;
+    flex: 1;
+    letter-spacing: -0.2px;
+  }
+
+  .q-tags {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .tag-beginner { background: rgba(0,229,160,0.12); color: var(--accent); }
+  .tag-intermediate { background: rgba(0,153,255,0.12); color: var(--accent2); }
+  .tag-advanced { background: rgba(255,107,53,0.12); color: var(--accent3); }
+
+  .chevron {
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform 0.3s;
+    padding-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .qa-card.open .chevron { transform: rotate(180deg); }
+  .qa-card.open .q-num { color: var(--accent); }
+
+  .answer-wrap {
+    display: none;
+    padding: 0 20px 20px 62px;
+    border-top: 1px solid var(--border);
+    background: var(--answer-bg);
+  }
+
+  .qa-card.open .answer-wrap { display: block; }
+
+  .answer-wrap p, .answer-wrap li {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: #94a3b8;
+    margin-top: 14px;
+  }
+
+  .answer-wrap ul, .answer-wrap ol {
+    padding-left: 20px;
+  }
+
+  .answer-wrap code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.15);
+    padding: 1px 6px;
+    border-radius: 2px;
+    color: var(--accent);
+  }
+
+  .answer-wrap strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    display: none;
+  }
+
+  /* Progress indicator */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    z-index: 200;
+    transition: width 0.1s;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Expand all button */
+  .expand-all-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .expand-all-btn:hover {
+    border-color: var(--accent2);
+    color: var(--accent2);
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 40px 20px 30px; }
+    .filter-bar { padding: 12px 20px; }
+    .search-wrap { width: 100%; }
+    #search { width: 100%; }
+    .q-tags { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<header>
+  <div class="badge">// Interview Prep</div>
+  <h1><span class="green">DevOps</span> Interview<br><span class="blue">Questions</span></h1>
+  <p class="subtitle">50 essential questions & detailed answers</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">50</div><div class="stat-label">Questions</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Categories</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Difficulty Levels</div></div>
+  </div>
+</header>
+
+<div class="filter-bar">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="beginner">Beginner</button>
+  <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+  <button class="filter-btn" data-filter="advanced">Advanced</button>
+  <button class="expand-all-btn" id="expandAll">Expand All</button>
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="Search questions...">
+  </div>
+</div>
+
+<main id="main">
+
+<!-- CATEGORY 1: Fundamentals -->
+<div class="category-header" data-category="fundamentals">
+  <div class="category-icon">🧱</div>
+  <div class="category-title">Fundamentals</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="fundamentals">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">01</span>
+    <span class="q-text">What is DevOps and what are its core principles?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>DevOps</strong> is a cultural and technical movement that unifies software development (Dev) and IT operations (Ops) to shorten the systems development lifecycle while delivering features, fixes, and updates frequently in close alignment with business objectives.</p>
+    <p><strong>Core Principles:</strong></p>
+    <ul>
+      <li><strong>Collaboration:</strong> Break down silos between Dev and Ops teams</li>
+      <li><strong>Automation:</strong> Automate repetitive tasks across the delivery pipeline</li>
+      <li><strong>Continuous Integration/Delivery:</strong> Merge code frequently and deliver reliably</li>
+      <li><strong>Monitoring & Feedback:</strong> Observe systems in production and act on data</li>
+      <li><strong>Infrastructure as Code:</strong> Manage infrastructure declaratively via code</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="fundamentals">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">02</span>
+    <span class="q-text">What is the difference between Continuous Integration, Continuous Delivery, and Continuous Deployment?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Continuous Integration (CI):</strong> Developers frequently merge code changes into a shared repository. Each merge triggers automated builds and tests to detect integration issues early.</p>
+    <p><strong>Continuous Delivery (CD):</strong> Extends CI — every change that passes automated tests is automatically prepared and ready for release to production. A human still approves the final deployment.</p>
+    <p><strong>Continuous Deployment:</strong> Fully automated — every change that passes the pipeline is automatically deployed to production without human intervention. Requires robust test coverage and monitoring.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="fundamentals">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">03</span>
+    <span class="q-text">What is Infrastructure as Code (IaC) and why is it important?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Infrastructure as Code (IaC)</strong> is the practice of managing and provisioning infrastructure through machine-readable configuration files rather than manual processes.</p>
+    <p><strong>Why it matters:</strong></p>
+    <ul>
+      <li><strong>Version Control:</strong> Infrastructure changes are tracked just like application code</li>
+      <li><strong>Reproducibility:</strong> Identical environments can be spun up reliably</li>
+      <li><strong>Speed:</strong> Provision complex infrastructure in minutes</li>
+      <li><strong>Consistency:</strong> Eliminates configuration drift and "works on my machine" problems</li>
+      <li><strong>Documentation:</strong> Code itself serves as living documentation</li>
+    </ul>
+    <p>Popular tools: <code>Terraform</code>, <code>Pulumi</code>, <code>AWS CloudFormation</code>, <code>Ansible</code></p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="fundamentals">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">04</span>
+    <span class="q-text">What is a microservices architecture and how does it relate to DevOps?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Microservices</strong> is an architectural approach where an application is built as a collection of small, independently deployable services, each responsible for a specific business capability.</p>
+    <p><strong>Relation to DevOps:</strong> Microservices and DevOps are complementary. Microservices allow individual teams to develop, deploy, and scale their services independently — aligning with DevOps's goal of frequent, reliable deployments. DevOps practices (CI/CD, containerization, observability) are essential to manage the complexity microservices introduce.</p>
+    <ul>
+      <li>Each service can be deployed independently, enabling faster release cycles</li>
+      <li>Failures are isolated to individual services</li>
+      <li>Teams can choose the best technology per service</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="fundamentals">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">05</span>
+    <span class="q-text">What is the concept of "Shift Left" in DevOps?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Shift Left</strong> means moving testing, security, and quality activities earlier in the software development lifecycle — to the "left" on the timeline.</p>
+    <p>Instead of testing after development is complete, teams integrate testing into every stage, from code writing to code review to CI pipeline. This catches bugs early when they're cheapest to fix.</p>
+    <p><strong>Shift Left Security (DevSecOps):</strong> Security scanning tools run in the CI pipeline so vulnerabilities are found during development, not in production. Examples: static analysis (<code>SAST</code>), dependency scanning, container image scanning.</p>
+  </div>
+</div>
+
+<!-- CATEGORY 2: Containers & Orchestration -->
+<div class="category-header" data-category="containers">
+  <div class="category-icon">🐳</div>
+  <div class="category-title">Containers & Orchestration</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="containers">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">06</span>
+    <span class="q-text">What is Docker and how does it differ from a Virtual Machine?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Docker</strong> is a platform for developing, shipping, and running applications in containers — lightweight, portable units that package code and all its dependencies.</p>
+    <p><strong>Key differences from VMs:</strong></p>
+    <ul>
+      <li><strong>Isolation:</strong> VMs virtualize the entire hardware including an OS kernel. Containers share the host OS kernel and isolate only the user space.</li>
+      <li><strong>Size:</strong> VM images are GBs; container images are typically MBs.</li>
+      <li><strong>Startup:</strong> VMs take minutes; containers start in seconds or milliseconds.</li>
+      <li><strong>Overhead:</strong> VMs have heavier resource overhead; containers are much lighter.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="containers">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">07</span>
+    <span class="q-text">What is Kubernetes and what problems does it solve?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Kubernetes (K8s)</strong> is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications.</p>
+    <p><strong>Problems it solves:</strong></p>
+    <ul>
+      <li><strong>Scaling:</strong> Automatically scales applications up/down based on load</li>
+      <li><strong>Self-healing:</strong> Restarts failed containers, reschedules pods on healthy nodes</li>
+      <li><strong>Service Discovery:</strong> Automatically exposes and discovers services</li>
+      <li><strong>Rolling Updates:</strong> Zero-downtime deployments with rollback capability</li>
+      <li><strong>Resource Management:</strong> Optimally places workloads across nodes</li>
+      <li><strong>Configuration Management:</strong> Manages secrets and config maps</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="containers">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">08</span>
+    <span class="q-text">Explain Kubernetes Pods, Deployments, and Services.</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Pod:</strong> The smallest deployable unit in Kubernetes. A Pod wraps one or more containers that share network namespace and storage. Containers in a pod communicate via <code>localhost</code>.</p>
+    <p><strong>Deployment:</strong> A higher-level abstraction that manages a set of identical Pods. It handles rolling updates, rollbacks, and ensures the desired number of Pod replicas are always running.</p>
+    <p><strong>Service:</strong> An abstraction that provides a stable network endpoint to access a set of Pods. Since Pod IPs are ephemeral, Services provide a consistent DNS name and IP. Types include <code>ClusterIP</code>, <code>NodePort</code>, <code>LoadBalancer</code>, and <code>ExternalName</code>.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="containers">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">09</span>
+    <span class="q-text">What are Docker best practices for writing production-ready Dockerfiles?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <ul>
+      <li><strong>Use official, minimal base images</strong> (e.g., <code>alpine</code>, <code>distroless</code>) to reduce attack surface and image size</li>
+      <li><strong>Multi-stage builds:</strong> Separate build dependencies from runtime artifacts</li>
+      <li><strong>Order layers</strong> from least to most frequently changing to maximize cache hits</li>
+      <li><strong>Never run as root:</strong> Add a non-root user with <code>USER</code> instruction</li>
+      <li><strong>Use <code>.dockerignore</code></strong> to exclude unnecessary files</li>
+      <li><strong>Avoid storing secrets</strong> in image layers — use environment variables or secret managers</li>
+      <li><strong>Pin dependency versions</strong> for reproducible builds</li>
+      <li><strong>Use <code>HEALTHCHECK</code></strong> instructions</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="containers">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">10</span>
+    <span class="q-text">How does Kubernetes handle persistent storage?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p>Kubernetes uses several abstractions for persistent storage:</p>
+    <ul>
+      <li><strong>PersistentVolume (PV):</strong> A piece of storage provisioned by an admin or dynamically via a StorageClass. It has a lifecycle independent of any Pod.</li>
+      <li><strong>PersistentVolumeClaim (PVC):</strong> A request for storage by a user. It binds to a PV and is mounted into a Pod.</li>
+      <li><strong>StorageClass:</strong> Defines the type and behavior of storage (e.g., <code>gp2</code> on AWS, <code>premium-ssd</code> on Azure). Enables dynamic provisioning.</li>
+      <li><strong>StatefulSets:</strong> Unlike Deployments, StatefulSets provide stable network identities and persistent storage for stateful applications (databases, message queues).</li>
+    </ul>
+    <p>For cloud-native apps, CSI (Container Storage Interface) drivers allow Kubernetes to use cloud block storage, NFS, Ceph, etc.</p>
+  </div>
+</div>
+
+<!-- CATEGORY 3: CI/CD -->
+<div class="category-header" data-category="cicd">
+  <div class="category-icon">🔄</div>
+  <div class="category-title">CI/CD Pipelines</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="cicd">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">11</span>
+    <span class="q-text">What are the key stages of a CI/CD pipeline?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p>A typical CI/CD pipeline includes these stages:</p>
+    <ol>
+      <li><strong>Source:</strong> Code commit triggers the pipeline (Git push/PR)</li>
+      <li><strong>Build:</strong> Compile code, resolve dependencies, create artifacts</li>
+      <li><strong>Test:</strong> Unit tests, integration tests, code coverage</li>
+      <li><strong>Security Scan:</strong> SAST, dependency vulnerability checks, container scanning</li>
+      <li><strong>Artifact Storage:</strong> Push built artifacts/images to a registry</li>
+      <li><strong>Deploy to Staging:</strong> Deploy to a staging/QA environment</li>
+      <li><strong>Acceptance Tests:</strong> End-to-end tests, smoke tests in staging</li>
+      <li><strong>Deploy to Production:</strong> Manual gate (CD) or fully automated (Continuous Deployment)</li>
+      <li><strong>Monitor:</strong> Observe metrics and trigger rollback if anomalies detected</li>
+    </ol>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="cicd">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">12</span>
+    <span class="q-text">What is GitOps and how does it differ from traditional CI/CD?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>GitOps</strong> is an operational framework where Git is the single source of truth for both application and infrastructure configuration. An operator (like <code>ArgoCD</code> or <code>Flux</code>) continuously reconciles the live cluster state with the desired state declared in Git.</p>
+    <p><strong>Key differences from traditional CI/CD:</strong></p>
+    <ul>
+      <li><strong>Pull vs Push:</strong> GitOps agents pull changes from Git rather than a CI system pushing to environments</li>
+      <li><strong>Declarative:</strong> The entire desired state is declared in Git — not scripted</li>
+      <li><strong>Drift Detection:</strong> GitOps continuously compares live state to desired state and auto-corrects</li>
+      <li><strong>Audit Trail:</strong> Every change to production is a Git commit with a clear author</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="cicd">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">13</span>
+    <span class="q-text">What is the difference between blue-green and canary deployments?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Blue-Green Deployment:</strong> Two identical production environments ("blue" and "green") exist simultaneously. Traffic is switched from blue (current) to green (new) all at once. Rollback is instant — just switch traffic back. Requires double infrastructure cost.</p>
+    <p><strong>Canary Deployment:</strong> New version is gradually rolled out to a small subset of users (e.g., 5%), while the rest continue using the old version. If metrics look healthy, traffic is progressively shifted (5% → 25% → 100%). Allows real-world validation with minimal blast radius.</p>
+    <p><strong>When to use which:</strong> Blue-green is ideal for predictable, all-or-nothing releases. Canary is better for risk mitigation on uncertain changes.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="cicd">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">14</span>
+    <span class="q-text">How do you manage secrets in a CI/CD pipeline?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p>Secrets must never be stored in plaintext in source code or CI configs. Best practices:</p>
+    <ul>
+      <li><strong>CI-native secret stores:</strong> GitHub Actions Secrets, GitLab CI Variables — encrypted at rest, injected as environment variables</li>
+      <li><strong>Dedicated secret managers:</strong> HashiCorp Vault, AWS Secrets Manager, Azure Key Vault. Credentials are fetched dynamically at runtime with short-lived tokens.</li>
+      <li><strong>Kubernetes Secrets + External Secrets Operator:</strong> Syncs secrets from external stores into K8s Secrets</li>
+      <li><strong>Rotation:</strong> Rotate secrets regularly and automate rotation to reduce exposure window</li>
+      <li><strong>Least privilege:</strong> Each pipeline stage should only have access to the secrets it needs</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="cicd">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">15</span>
+    <span class="q-text">How would you design a CI/CD pipeline for a microservices application?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Key considerations for microservices CI/CD:</strong></p>
+    <ul>
+      <li><strong>Monorepo or Polyrepo:</strong> With a monorepo, use path-based triggers to only build changed services. Polyrepo gives each service its own pipeline.</li>
+      <li><strong>Independent pipelines per service:</strong> Each service builds, tests, and deploys independently with its own versioning</li>
+      <li><strong>Contract testing:</strong> Use Pact or similar tools to verify service API contracts don't break consumers</li>
+      <li><strong>Environment promotion:</strong> dev → staging → production with automated gates</li>
+      <li><strong>Service mesh integration:</strong> Test traffic management, circuit breakers during pipeline</li>
+      <li><strong>Observability gates:</strong> Automatically validate error rates and latency after deployment before promoting</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CATEGORY 4: Cloud & Infrastructure -->
+<div class="category-header" data-category="cloud">
+  <div class="category-icon">☁️</div>
+  <div class="category-title">Cloud & Infrastructure</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="cloud">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">16</span>
+    <span class="q-text">What is Terraform and how does it work?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Terraform</strong> is an open-source IaC tool by HashiCorp that allows you to define, provision, and manage cloud infrastructure using a declarative configuration language (HCL).</p>
+    <p><strong>How it works:</strong></p>
+    <ol>
+      <li><strong>Write:</strong> Define resources in <code>.tf</code> files using HCL</li>
+      <li><strong>Plan:</strong> <code>terraform plan</code> previews what changes will be made without applying them</li>
+      <li><strong>Apply:</strong> <code>terraform apply</code> provisions/modifies the actual infrastructure</li>
+      <li><strong>State:</strong> Terraform maintains a state file (<code>terraform.tfstate</code>) that maps configuration to real-world resources</li>
+    </ol>
+    <p>Terraform supports 1000+ providers: AWS, Azure, GCP, Kubernetes, GitHub, etc.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="cloud">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">17</span>
+    <span class="q-text">What is the difference between IaaS, PaaS, and SaaS?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <ul>
+      <li><strong>IaaS (Infrastructure as a Service):</strong> Provides raw compute, storage, and networking. You manage OS, runtime, middleware, and applications. Examples: AWS EC2, Azure VMs, GCP Compute Engine.</li>
+      <li><strong>PaaS (Platform as a Service):</strong> Provides a managed platform including OS, runtime, and middleware. You manage only the application and data. Examples: Heroku, AWS Elastic Beanstalk, Google App Engine.</li>
+      <li><strong>SaaS (Software as a Service):</strong> Fully managed applications delivered over the internet. You manage nothing infrastructure-related. Examples: Salesforce, Gmail, Slack.</li>
+    </ul>
+    <p>DevOps primarily operates at the IaaS and PaaS layers, often building internal PaaS experiences on top of IaaS.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="cloud">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">18</span>
+    <span class="q-text">How do you manage Terraform state in a team environment?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p>Local state files are dangerous in teams — they cause conflicts and loss of the source of truth. Best practices:</p>
+    <ul>
+      <li><strong>Remote backends:</strong> Store state in S3 + DynamoDB (AWS), Azure Blob Storage, or Terraform Cloud. These provide locking to prevent concurrent modifications.</li>
+      <li><strong>State locking:</strong> DynamoDB tables lock state during operations so two engineers can't apply simultaneously</li>
+      <li><strong>Workspaces:</strong> Use Terraform workspaces or separate state files per environment (dev/staging/prod)</li>
+      <li><strong>Sensitive data:</strong> State files may contain secrets — ensure the backend is encrypted and access-controlled</li>
+      <li><strong>Never commit state files</strong> to version control — add <code>*.tfstate</code> to <code>.gitignore</code></li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="cloud">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">19</span>
+    <span class="q-text">What is a service mesh and when would you use one?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p>A <strong>service mesh</strong> is a dedicated infrastructure layer (typically implemented as sidecar proxies) that handles service-to-service communication in a microservices architecture.</p>
+    <p><strong>Capabilities:</strong></p>
+    <ul>
+      <li>Mutual TLS (mTLS) for zero-trust service authentication</li>
+      <li>Traffic management: load balancing, retries, timeouts, circuit breaking</li>
+      <li>Observability: distributed tracing, metrics, logs per service-to-service call</li>
+      <li>Canary/A-B traffic splitting at the network level</li>
+    </ul>
+    <p><strong>Popular implementations:</strong> <code>Istio</code>, <code>Linkerd</code>, <code>Consul Connect</code></p>
+    <p><strong>When to use:</strong> When you have many microservices and need consistent observability, security, and traffic control without modifying application code. Adds operational complexity — only introduce when problems justify it.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="cloud">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">20</span>
+    <span class="q-text">How would you design a highly available, multi-region architecture on AWS?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <ul>
+      <li><strong>Multiple AZs:</strong> Deploy across at least 3 Availability Zones within each region for fault tolerance</li>
+      <li><strong>Global load balancing:</strong> Route 53 with latency-based or failover routing, or AWS Global Accelerator</li>
+      <li><strong>Database replication:</strong> Aurora Global Database for cross-region replication with sub-second RPO</li>
+      <li><strong>Active-Active vs Active-Passive:</strong> Active-Active routes traffic to both regions simultaneously; Active-Passive keeps a standby region that activates on failover</li>
+      <li><strong>Data consistency:</strong> Design for eventual consistency at global scale; use event sourcing and CQRS patterns</li>
+      <li><strong>Disaster Recovery metrics:</strong> Define RTO (Recovery Time Objective) and RPO (Recovery Point Objective) — these drive architecture decisions</li>
+      <li><strong>Regular runbooks and DR drills</strong> to verify failover works as expected</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CATEGORY 5: Monitoring & Observability -->
+<div class="category-header" data-category="monitoring">
+  <div class="category-icon">📊</div>
+  <div class="category-title">Monitoring & Observability</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="monitoring">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">21</span>
+    <span class="q-text">What are the three pillars of observability?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p>The three pillars of observability are:</p>
+    <ul>
+      <li><strong>Metrics:</strong> Numerical measurements over time (CPU usage, request rate, error rate, latency). Good for dashboards and alerting. Tools: Prometheus, Datadog, CloudWatch.</li>
+      <li><strong>Logs:</strong> Timestamped records of discrete events. Invaluable for debugging specific incidents. Tools: ELK Stack, Loki, Splunk.</li>
+      <li><strong>Traces:</strong> Records of a request's journey across multiple services. Shows bottlenecks and latency in distributed systems. Tools: Jaeger, Zipkin, AWS X-Ray, OpenTelemetry.</li>
+    </ul>
+    <p>Effective observability combines all three — use metrics to detect a problem, traces to locate it, and logs to understand it.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="monitoring">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">22</span>
+    <span class="q-text">What are SLIs, SLOs, and SLAs? How are they related?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>SLI (Service Level Indicator):</strong> A quantitative measurement of a service's behavior. Examples: request latency, error rate, availability percentage, throughput.</p>
+    <p><strong>SLO (Service Level Objective):</strong> A target value for an SLI. Example: "99.9% of requests should respond in under 200ms." SLOs are internal targets that teams aim to meet.</p>
+    <p><strong>SLA (Service Level Agreement):</strong> A contractual agreement with customers about service levels. Typically less strict than SLOs. Violating an SLA may trigger penalties.</p>
+    <p><strong>Error Budget:</strong> The amount of unreliability permitted within an SLO period. If you have a 99.9% SLO, your monthly error budget is ~43 minutes of downtime.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="monitoring">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">23</span>
+    <span class="q-text">How does Prometheus work and what is its data model?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Prometheus</strong> is an open-source monitoring system that collects metrics by scraping HTTP endpoints at regular intervals.</p>
+    <p><strong>Data Model:</strong> Every metric is a time series identified by a metric name and key-value label pairs. Example: <code>http_requests_total{method="GET", status="200"}</code></p>
+    <p><strong>Metric types:</strong></p>
+    <ul>
+      <li><strong>Counter:</strong> Monotonically increasing (request count, errors)</li>
+      <li><strong>Gauge:</strong> Can go up or down (CPU usage, memory)</li>
+      <li><strong>Histogram:</strong> Samples observations in buckets (latency distribution)</li>
+      <li><strong>Summary:</strong> Similar to histogram, calculates quantiles on client side</li>
+    </ul>
+    <p>Querying is done with <strong>PromQL</strong>. Alertmanager handles notifications. Often paired with <strong>Grafana</strong> for visualization.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="monitoring">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">24</span>
+    <span class="q-text">What is distributed tracing and how does OpenTelemetry help?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Distributed tracing</strong> tracks a single request as it flows through multiple microservices, recording timing and metadata at each hop. It helps identify latency bottlenecks and failure points across service boundaries.</p>
+    <p>Key concepts: A <strong>Trace</strong> represents the entire request journey. A <strong>Span</strong> is a single unit of work within a trace. Spans are linked via a <code>trace-id</code> propagated in request headers.</p>
+    <p><strong>OpenTelemetry (OTel)</strong> is a vendor-neutral CNCF project that provides a unified SDK and API for collecting traces, metrics, and logs. It solves instrumentation fragmentation — you instrument once with OTel and export to any backend (Jaeger, Zipkin, Datadog, Honeycomb) without changing code.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="monitoring">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">25</span>
+    <span class="q-text">How would you approach an on-call incident response?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Incident Response Process:</strong></p>
+    <ol>
+      <li><strong>Triage:</strong> Assess severity. Declare the incident level (P1/P2/P3). Page relevant responders.</li>
+      <li><strong>Mitigate first:</strong> Restore service as quickly as possible (rollback, feature flag off, reroute traffic). Don't investigate root cause while the service is down.</li>
+      <li><strong>Communicate:</strong> Update the status page and notify stakeholders. Keep communication frequent.</li>
+      <li><strong>Investigate:</strong> Once stable, use logs, metrics, and traces to identify root cause. Form hypotheses and validate against data.</li>
+      <li><strong>Document:</strong> Write a blameless post-mortem with timeline, root cause, contributing factors, and action items.</li>
+      <li><strong>Follow-through:</strong> Complete post-mortem action items to prevent recurrence.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- CATEGORY 6: Security (DevSecOps) -->
+<div class="category-header" data-category="security">
+  <div class="category-icon">🔐</div>
+  <div class="category-title">Security (DevSecOps)</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="security">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">26</span>
+    <span class="q-text">What is DevSecOps and how does it differ from traditional security?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>DevSecOps</strong> integrates security practices into every stage of the DevOps lifecycle, making security a shared responsibility rather than a bottleneck gate at the end of development.</p>
+    <p><strong>Traditional security</strong> treats security as a separate phase — a security team reviews/scans before release. This creates friction, delays, and vulnerabilities found late are expensive to fix.</p>
+    <p><strong>DevSecOps approach:</strong></p>
+    <ul>
+      <li>Security tools embedded in CI/CD (SAST, DAST, SCA, container scanning)</li>
+      <li>Developers educated on secure coding practices</li>
+      <li>Security requirements defined in user stories</li>
+      <li>Threat modeling done early in design</li>
+      <li>Infrastructure security validated as code via policy-as-code tools (<code>OPA</code>, <code>Checkov</code>)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="security">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">27</span>
+    <span class="q-text">What is the principle of least privilege and how do you apply it in cloud environments?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Principle of Least Privilege (PoLP):</strong> Every entity (user, service, process) should have only the minimum permissions necessary to perform its function, and no more.</p>
+    <p><strong>Application in cloud environments:</strong></p>
+    <ul>
+      <li><strong>IAM roles with granular policies:</strong> Grant specific actions on specific resources instead of wildcards (<code>*</code>)</li>
+      <li><strong>Service accounts per workload:</strong> Each application/service gets its own identity with scoped permissions</li>
+      <li><strong>No long-lived credentials:</strong> Use IAM roles with short-lived tokens (AWS IAM Roles for EC2/EKS) instead of access keys</li>
+      <li><strong>Regular access reviews:</strong> Audit and remove unused permissions</li>
+      <li><strong>Workload Identity:</strong> In Kubernetes, use IRSA (AWS) or Workload Identity (GCP) to map K8s service accounts to cloud IAM roles</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="security">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">28</span>
+    <span class="q-text">How do you secure a Kubernetes cluster?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <ul>
+      <li><strong>RBAC:</strong> Use Role-Based Access Control to limit what users and service accounts can do</li>
+      <li><strong>Network Policies:</strong> Default-deny all traffic; explicitly allow required communication</li>
+      <li><strong>Pod Security Standards:</strong> Use Restricted policies to prevent privileged containers, host namespace access</li>
+      <li><strong>Image Security:</strong> Use only trusted registries; scan images for vulnerabilities in CI; use signed images</li>
+      <li><strong>Secrets management:</strong> Avoid storing secrets in plain K8s Secrets (base64 is not encryption); use External Secrets Operator + Vault</li>
+      <li><strong>Audit logging:</strong> Enable API server audit logs to track who did what</li>
+      <li><strong>Keep K8s updated:</strong> Regularly patch the control plane and node OS</li>
+      <li><strong>mTLS:</strong> Use a service mesh for encrypted service-to-service communication</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="security">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">29</span>
+    <span class="q-text">What is Policy as Code and how do tools like OPA/Gatekeeper work?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Policy as Code (PaC)</strong> defines compliance, security, and operational policies as code that can be version-controlled, tested, and automatically enforced.</p>
+    <p><strong>Open Policy Agent (OPA)</strong> is a general-purpose policy engine. Policies are written in <strong>Rego</strong> language. OPA evaluates JSON inputs against Rego policies to produce allow/deny decisions.</p>
+    <p><strong>OPA Gatekeeper</strong> integrates OPA with Kubernetes as an admission controller. When you create/modify K8s resources, Gatekeeper evaluates them against defined constraints before allowing the operation. Example policies: "All containers must have resource limits", "Images must come from our private registry", "No privileged containers allowed".</p>
+    <p><strong>Checkov</strong> and <strong>Terrascan</strong> serve a similar purpose for Terraform — scanning IaC before it's applied.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="security">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">30</span>
+    <span class="q-text">How would you implement zero-trust networking in a cloud environment?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Zero-trust</strong> assumes no implicit trust based on network location — every request must be authenticated and authorized, regardless of whether it comes from inside or outside the network perimeter.</p>
+    <p><strong>Implementation strategies:</strong></p>
+    <ul>
+      <li><strong>Identity-based access:</strong> Every workload and user has a cryptographic identity; access decisions are identity-driven</li>
+      <li><strong>mTLS everywhere:</strong> Enforce mutual TLS for all service-to-service communication (service mesh)</li>
+      <li><strong>Micro-segmentation:</strong> Fine-grained network policies that allow only necessary communication</li>
+      <li><strong>Continuous verification:</strong> Authenticate and authorize on every request, not just at session start</li>
+      <li><strong>BeyondCorp / IAP:</strong> Replace VPN with context-aware access proxies that evaluate device posture, user identity, and request context</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CATEGORY 7: Version Control & Collaboration -->
+<div class="category-header" data-category="vcs">
+  <div class="category-icon">🌿</div>
+  <div class="category-title">Version Control & Collaboration</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="vcs">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">31</span>
+    <span class="q-text">What is Git branching strategy and what are common models?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p>A <strong>branching strategy</strong> defines how teams use branches to organize development and releases.</p>
+    <p><strong>Common models:</strong></p>
+    <ul>
+      <li><strong>Gitflow:</strong> Long-lived <code>main</code> and <code>develop</code> branches, with feature/release/hotfix branches. Good for versioned software, complex for CI/CD.</li>
+      <li><strong>GitHub Flow:</strong> Single main branch; feature branches are short-lived and merged via PRs. Simple and works well with CI/CD.</li>
+      <li><strong>Trunk-Based Development:</strong> All developers commit to a single <code>main</code> branch (or very short-lived branches < 1 day). Requires strong CI, feature flags. Preferred for high-velocity teams.</li>
+    </ul>
+    <p>Modern DevOps teams often prefer Trunk-Based Development as it minimizes merge conflicts and enables true CI.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="vcs">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">32</span>
+    <span class="q-text">What is semantic versioning and why does it matter in DevOps?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Semantic Versioning (SemVer)</strong> uses the format <code>MAJOR.MINOR.PATCH</code>:</p>
+    <ul>
+      <li><strong>MAJOR:</strong> Breaking/incompatible API changes</li>
+      <li><strong>MINOR:</strong> New backward-compatible functionality</li>
+      <li><strong>PATCH:</strong> Backward-compatible bug fixes</li>
+    </ul>
+    <p><strong>Why it matters:</strong> In microservices and library ecosystems, consumers need to understand the impact of updates. SemVer communicates the risk level of upgrading. CI/CD pipelines can automate version bumps based on commit messages (Conventional Commits + tools like <code>semantic-release</code>).</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="vcs">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">33</span>
+    <span class="q-text">What are feature flags and how do they enable continuous deployment?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Feature flags</strong> (also called feature toggles) are configuration switches that allow you to enable or disable features at runtime without deploying new code.</p>
+    <p><strong>Enabling continuous deployment:</strong></p>
+    <ul>
+      <li>Deploy incomplete code to production with the feature hidden behind a flag</li>
+      <li>Test in production with a subset of users before broad rollout</li>
+      <li>Instantly roll back a problematic feature by toggling the flag off — no redeployment needed</li>
+      <li>Decouple deployment from release — ship code continuously but control when users see features</li>
+    </ul>
+    <p>Tools: <code>LaunchDarkly</code>, <code>Unleash</code>, <code>Flagsmith</code>, AWS AppConfig.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="vcs">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">34</span>
+    <span class="q-text">What is a pull request and what makes a good code review process?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p>A <strong>Pull Request (PR)</strong> is a request to merge code changes from one branch to another, providing a forum for code review before integration.</p>
+    <p><strong>Good code review practices:</strong></p>
+    <ul>
+      <li><strong>Small, focused PRs:</strong> Easier to review; faster to merge. Aim for < 400 lines changed.</li>
+      <li><strong>Clear description:</strong> Explain what the change does and why</li>
+      <li><strong>Automated checks first:</strong> Lint, tests, security scans should pass before human review</li>
+      <li><strong>Review for correctness, maintainability, and security</strong> — not just style</li>
+      <li><strong>Constructive feedback:</strong> Blameless, focused on code not the author</li>
+      <li><strong>Required reviewers:</strong> Enforce minimum approvals + CODEOWNERS for critical files</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="vcs">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">35</span>
+    <span class="q-text">What is monorepo vs polyrepo and what are the trade-offs?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Monorepo:</strong> All projects/services in one repository. Used by Google, Meta, Microsoft.</p>
+    <ul>
+      <li>✅ Atomic cross-project changes in a single commit</li>
+      <li>✅ Shared tooling and dependency management</li>
+      <li>✅ Easier code reuse and discoverability</li>
+      <li>❌ Requires specialized tooling (Bazel, Nx, Turborepo) to scale CI</li>
+      <li>❌ Access control is harder</li>
+    </ul>
+    <p><strong>Polyrepo:</strong> Each service has its own repository.</p>
+    <ul>
+      <li>✅ Clear ownership and autonomy per service</li>
+      <li>✅ CI only builds what changed (by default)</li>
+      <li>❌ Cross-repo changes are painful</li>
+      <li>❌ Duplicate tooling and configuration across repos</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CATEGORY 8: Scripting & Automation -->
+<div class="category-header" data-category="scripting">
+  <div class="category-icon">⚙️</div>
+  <div class="category-title">Scripting & Automation</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">36</span>
+    <span class="q-text">What is Ansible and how does it differ from Terraform?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Ansible</strong> is an agentless configuration management and automation tool. It connects via SSH and executes tasks defined in YAML playbooks. It's primarily used for software configuration, application deployment, and ad-hoc automation.</p>
+    <p><strong>Terraform vs Ansible:</strong></p>
+    <ul>
+      <li><strong>Terraform:</strong> Infrastructure provisioning (create/destroy VMs, networks, databases). Declarative, manages state, idempotent.</li>
+      <li><strong>Ansible:</strong> Configuration management (install packages, configure software, deploy apps). Procedural, stateless.</li>
+    </ul>
+    <p>They're complementary: Terraform provisions infrastructure, Ansible configures it. Modern teams increasingly use cloud-init or container images instead of Ansible for immutable infrastructure.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">37</span>
+    <span class="q-text">What are idempotency and immutability in the context of infrastructure?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Idempotency:</strong> An operation that produces the same result regardless of how many times it's applied. In IaC, running <code>terraform apply</code> twice should result in the same infrastructure state — no unintended changes. Critical for automation safety.</p>
+    <p><strong>Immutable Infrastructure:</strong> Instead of patching and modifying existing servers, you replace them entirely with new instances when changes are needed. Bake all configuration into an AMI or container image. Deploy the new version; retire the old.</p>
+    <p><strong>Benefits of immutability:</strong></p>
+    <ul>
+      <li>Eliminates configuration drift</li>
+      <li>Rollback is as easy as deploying the previous image</li>
+      <li>Environments are always in a known, reproducible state</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">38</span>
+    <span class="q-text">How do you write a robust Bash script for production use?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div name="answer-wrap" class="answer-wrap">
+    <p>Key practices for production Bash scripts:</p>
+    <ul>
+      <li><code>set -euo pipefail</code> at the top — exit on errors, treat unset variables as errors, fail on pipe failures</li>
+      <li><strong>Meaningful error messages:</strong> Use <code>trap</code> to catch errors and log context</li>
+      <li><strong>Idempotent operations:</strong> Check if a state already exists before trying to create it</li>
+      <li><strong>Input validation:</strong> Check required arguments and environment variables exist</li>
+      <li><strong>Use shellcheck:</strong> Lint Bash scripts to catch common mistakes</li>
+      <li><strong>Avoid parsing ls output</strong> — use globs instead</li>
+      <li><strong>Quote all variables:</strong> <code>"$variable"</code> to prevent word splitting</li>
+      <li><strong>Logging:</strong> Write logs to stderr; write usable output to stdout</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">39</span>
+    <span class="q-text">What is Helm and how does it simplify Kubernetes deployments?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Helm</strong> is the package manager for Kubernetes. It packages K8s manifests into <strong>charts</strong> — reusable, versioned, configurable bundles.</p>
+    <p><strong>How it helps:</strong></p>
+    <ul>
+      <li><strong>Templating:</strong> Uses Go templates to generate manifests dynamically from values</li>
+      <li><strong>Reusability:</strong> Charts can be shared (Artifact Hub) and customized per environment</li>
+      <li><strong>Release management:</strong> Tracks deployed versions; supports <code>helm rollback</code></li>
+      <li><strong>Dependency management:</strong> Charts can declare dependencies on other charts</li>
+    </ul>
+    <p>Typical workflow: <code>helm install my-app ./chart -f values-prod.yaml</code>. Alternatives: Kustomize (overlay-based, no templating), raw manifests with environment substitution.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">40</span>
+    <span class="q-text">What is configuration drift and how do you detect and prevent it?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Configuration drift</strong> occurs when a system's actual state diverges from its intended/declared state, usually due to manual changes, failed automation, or hotfixes applied directly to production.</p>
+    <p><strong>Detection:</strong></p>
+    <ul>
+      <li><code>terraform plan</code> reveals drift between state and live infrastructure</li>
+      <li>GitOps operators (ArgoCD, Flux) continuously detect and report drift</li>
+      <li>AWS Config, Chef InSpec, or Puppet report policy violations</li>
+    </ul>
+    <p><strong>Prevention:</strong></p>
+    <ul>
+      <li><strong>Immutable infrastructure:</strong> Replace rather than modify servers</li>
+      <li><strong>Lock down manual changes:</strong> Enforce that all changes go through IaC pipelines</li>
+      <li><strong>GitOps auto-remediation:</strong> Automatically reconcile drift back to the desired state</li>
+      <li><strong>Restrict console/SSH access</strong> in production environments</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Extra questions 41-50 -->
+<div class="category-header" data-category="advanced-topics">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">Advanced Topics</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="advanced-topics">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">41</span>
+    <span class="q-text">What is chaos engineering and how do you implement it safely?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Chaos Engineering</strong> is the practice of intentionally injecting failures into a system to discover weaknesses before they cause unplanned outages. The goal is to build confidence in the system's resilience.</p>
+    <p><strong>Safe implementation:</strong></p>
+    <ul>
+      <li><strong>Define steady state:</strong> Know what "normal" looks like before injecting chaos</li>
+      <li><strong>Start small:</strong> Begin in non-production, then gradually move toward production with careful controls</li>
+      <li><strong>Limit blast radius:</strong> Use feature flags to confine the experiment to a small percentage of traffic</li>
+      <li><strong>Have a kill switch:</strong> Always be able to immediately stop the experiment</li>
+      <li><strong>Run during business hours:</strong> When the team is available to respond</li>
+    </ul>
+    <p>Tools: <code>Chaos Monkey</code> (Netflix), <code>Litmus</code>, <code>Gremlin</code>, <code>AWS Fault Injection Simulator</code>.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="advanced-topics">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">42</span>
+    <span class="q-text">What is FinOps and how do DevOps engineers contribute to cloud cost management?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>FinOps</strong> (Financial Operations) is a cultural practice that brings financial accountability to cloud spending, enabling teams to make cost-aware architectural decisions.</p>
+    <p><strong>DevOps contributions to cost management:</strong></p>
+    <ul>
+      <li><strong>Right-sizing:</strong> Analyze actual resource utilization and resize instances; use tools like AWS Compute Optimizer</li>
+      <li><strong>Auto-scaling:</strong> Scale down during off-peak hours instead of running peak capacity 24/7</li>
+      <li><strong>Spot/Preemptible instances:</strong> Use for non-critical, fault-tolerant workloads (up to 90% savings)</li>
+      <li><strong>Reserved/Savings Plans:</strong> Commit to predictable workloads for discounted rates</li>
+      <li><strong>Tagging strategy:</strong> Tag all resources with team/service/environment for cost attribution</li>
+      <li><strong>Ephemeral environments:</strong> Spin up PR environments on demand; auto-destroy when merged</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="advanced-topics">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">43</span>
+    <span class="q-text">What is the role of eBPF in modern observability and networking?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>eBPF (extended Berkeley Packet Filter)</strong> allows sandboxed programs to run in the Linux kernel without modifying kernel source or loading kernel modules. It enables powerful, low-overhead observability and networking capabilities.</p>
+    <p><strong>Use cases in DevOps:</strong></p>
+    <ul>
+      <li><strong>Observability:</strong> Cilium Hubble and Pixie use eBPF for automatic service dependency mapping and L7 tracing without code instrumentation</li>
+      <li><strong>Security:</strong> Runtime security tools (Falco, Tetragon) use eBPF to detect and prevent malicious syscalls in real time</li>
+      <li><strong>Networking:</strong> Cilium replaces kube-proxy with eBPF for higher performance K8s networking</li>
+      <li><strong>Performance profiling:</strong> Continuous profiling tools like Parca use eBPF for production flame graphs with minimal overhead</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="advanced-topics">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">44</span>
+    <span class="q-text">What is a postmortem and what makes a blameless culture?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p>A <strong>postmortem</strong> (or incident review) is a structured analysis conducted after an incident to understand what happened, why it happened, and how to prevent recurrence.</p>
+    <p><strong>Standard postmortem sections:</strong> Impact summary, timeline, root cause analysis, contributing factors, action items with owners and deadlines.</p>
+    <p><strong>Blameless culture</strong> means focusing on system and process failures rather than individual mistakes. Key principles:</p>
+    <ul>
+      <li>People made reasonable decisions given the information available at the time</li>
+      <li>The goal is to improve systems, not punish individuals</li>
+      <li>Blame suppresses incident reporting and learning</li>
+      <li>Complex systems fail in complex ways — usually multiple contributing factors, not one person</li>
+    </ul>
+    <p>Pioneered by Google SRE; now a standard DevOps practice.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="advanced-topics">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">45</span>
+    <span class="q-text">How does auto-scaling work in Kubernetes (HPA, VPA, KEDA)?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <ul>
+      <li><strong>HPA (Horizontal Pod Autoscaler):</strong> Scales the number of Pod replicas based on CPU/memory utilization or custom metrics. Works by adjusting the <code>replicas</code> field of a Deployment based on observed metrics vs target thresholds.</li>
+      <li><strong>VPA (Vertical Pod Autoscaler):</strong> Adjusts the CPU and memory requests/limits of containers based on historical usage. Can set recommendations only, or automatically update pods (requires restart).</li>
+      <li><strong>Cluster Autoscaler:</strong> Scales the number of nodes in the cluster when pods can't be scheduled due to insufficient resources.</li>
+      <li><strong>KEDA (Kubernetes Event-Driven Autoscaling):</strong> Scales workloads based on external event sources — Kafka consumer lag, SQS queue depth, Prometheus metrics, HTTP request rate. Can scale to zero.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="advanced-topics">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">46</span>
+    <span class="q-text">What is the CALMS framework in DevOps?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>CALMS</strong> is a framework that describes the core values and dimensions of a DevOps culture:</p>
+    <ul>
+      <li><strong>C — Culture:</strong> Break silos; foster collaboration, shared responsibility, and psychological safety</li>
+      <li><strong>A — Automation:</strong> Automate repetitive processes — builds, tests, deployments, infrastructure</li>
+      <li><strong>L — Lean:</strong> Apply lean principles — eliminate waste, reduce batch size, focus on flow</li>
+      <li><strong>M — Measurement:</strong> Measure everything; use data to drive decisions and identify bottlenecks</li>
+      <li><strong>S — Sharing:</strong> Share knowledge, tools, and learnings across teams; open communication</li>
+    </ul>
+    <p>CALMS is useful for DevOps transformation assessments to identify which dimensions need the most improvement.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="advanced-topics">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">47</span>
+    <span class="q-text">How do you handle database migrations in a continuous deployment environment?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p>Database migrations in CD environments require careful coordination to avoid downtime and deployment failures.</p>
+    <p><strong>Key principles:</strong></p>
+    <ul>
+      <li><strong>Backward-compatible migrations:</strong> Each migration must work with both the current and next version of the application (expand-contract pattern)</li>
+      <li><strong>Expand-Contract (Parallel Change):</strong>
+        <ol>
+          <li>Add new column/table (expand)</li>
+          <li>Deploy app code that writes to both old and new</li>
+          <li>Backfill data</li>
+          <li>Deploy app code that only uses new column</li>
+          <li>Drop old column (contract)</li>
+        </ol>
+      </li>
+      <li><strong>Tools:</strong> Flyway, Liquibase for version-controlled migrations run in CI pipeline</li>
+      <li><strong>Never:</strong> Rename or drop columns in the same deployment as the code change that stops using them</li>
+    </ul>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="advanced-topics">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">48</span>
+    <span class="q-text">What is the difference between a container registry and an artifact repository?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Container Registry:</strong> A storage system specifically for Docker/OCI container images. Images are pushed/pulled using the Docker registry protocol. Examples: Docker Hub, AWS ECR, GCR, GitHub Container Registry.</p>
+    <p><strong>Artifact Repository:</strong> A broader storage system for binary artifacts of any type — JARs, npm packages, Python wheels, Helm charts, raw files. Examples: JFrog Artifactory, Sonatype Nexus, AWS CodeArtifact.</p>
+    <p><strong>Key overlap:</strong> Modern artifact repositories (Artifactory, Nexus) also support container images. In practice, teams use a dedicated container registry for images and an artifact repo for language packages. Both serve as a central, versioned, immutable store for build outputs.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="advanced-topics">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">49</span>
+    <span class="q-text">How does Kubernetes handle resource requests, limits, and Quality of Service classes?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Requests:</strong> The amount of CPU/memory a container is guaranteed. Used by the scheduler to find a suitable node.</p>
+    <p><strong>Limits:</strong> The maximum CPU/memory a container can use. CPU is throttled when hitting the limit; memory limit violations cause OOMKill.</p>
+    <p><strong>QoS Classes:</strong> Kubernetes automatically assigns one of three classes:</p>
+    <ul>
+      <li><strong>Guaranteed:</strong> Every container has equal requests and limits. Highest priority; last to be evicted.</li>
+      <li><strong>Burstable:</strong> At least one container has requests set, but not equal to limits.</li>
+      <li><strong>BestEffort:</strong> No requests or limits set. First to be evicted under memory pressure.</li>
+    </ul>
+    <p>Best practice: Always set requests (for scheduling) and limits (for stability). Use LimitRanges and ResourceQuotas at namespace level.</p>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="advanced-topics">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">50</span>
+    <span class="q-text">What are DORA metrics and why are they important for DevOps teams?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>DORA metrics</strong> (from the DevOps Research and Assessment team) are four key metrics that measure software delivery performance:</p>
+    <ul>
+      <li><strong>Deployment Frequency:</strong> How often code is deployed to production. Elite teams deploy multiple times per day.</li>
+      <li><strong>Lead Time for Changes:</strong> Time from code commit to running in production. Elite teams: < 1 hour.</li>
+      <li><strong>Change Failure Rate:</strong> Percentage of deployments that cause a degraded service or require hotfix. Elite: < 5%.</li>
+      <li><strong>Mean Time to Restore (MTTR):</strong> How long it takes to recover from a production failure. Elite: < 1 hour.</li>
+    </ul>
+    <p>DORA research shows these metrics correlate with organizational performance. They help teams identify bottlenecks (e.g., high CFR = poor testing; high MTTR = poor observability) and set measurable improvement goals.</p>
+  </div>
+</div>
+
+<div class="empty-state" id="emptyState">No questions match your search.</div>
+
+</main>
+
+<script>
+  let expandedAll = false;
+
+  function toggle(btn) {
+    const card = btn.closest('.qa-card');
+    card.classList.toggle('open');
+  }
+
+  // Filter by difficulty
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.qa-card').forEach(card => {
+        if (filter === 'all' || card.dataset.tags === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      checkEmpty();
+    });
+  });
+
+  // Search
+  document.getElementById('search').addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('.qa-card').forEach(card => {
+      const text = card.querySelector('.q-text').textContent.toLowerCase();
+      const answer = card.querySelector('.answer-wrap').textContent.toLowerCase();
+      if (text.includes(q) || answer.includes(q)) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+    checkEmpty();
+  });
+
+  function checkEmpty() {
+    const visible = document.querySelectorAll('.qa-card:not(.hidden)').length;
+    document.getElementById('emptyState').style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  // Expand all
+  document.getElementById('expandAll').addEventListener('click', function() {
+    expandedAll = !expandedAll;
+    document.querySelectorAll('.qa-card:not(.hidden)').forEach(card => {
+      if (expandedAll) card.classList.add('open');
+      else card.classList.remove('open');
+    });
+    this.textContent = expandedAll ? 'Collapse All' : 'Expand All';
+  });
+
+  // Progress bar on scroll
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  // Staggered animation
+  document.querySelectorAll('.qa-card').forEach((card, i) => {
+    card.style.animationDelay = (i * 0.02) + 's';
+  });
+</script>
+
+</body>
+</html>
