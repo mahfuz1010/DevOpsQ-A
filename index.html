@@ -406,10 +406,10 @@
 <header>
   <div class="badge">// Interview Prep</div>
   <h1><span class="green">DevOps</span> Interview<br><span class="blue">Questions</span></h1>
-  <p class="subtitle">50 essential questions & detailed answers</p>
+  <p class="subtitle">250 essential questions & detailed answers</p>
   <div class="stats">
-    <div class="stat"><div class="stat-num">50</div><div class="stat-label">Questions</div></div>
-    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Categories</div></div>
+    <div class="stat"><div class="stat-num">250</div><div class="stat-label">Questions</div></div>
+    <div class="stat"><div class="stat-num">19</div><div class="stat-label">Categories</div></div>
     <div class="stat"><div class="stat-num">3</div><div class="stat-label">Difficulty Levels</div></div>
   </div>
 </header>
@@ -1456,6 +1456,3105 @@
   </div>
 </div>
 
+
+<!-- CATEGORY 9: GitOps -->
+<div class="category-header" data-category="gitops">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">GitOps</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">51</span>
+    <span class="q-text">What is GitOps and how does it manage infrastructure?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> GitOps uses Git as the single source of truth for declarative infrastructure.</p>
+    <p><strong>Why it matters:</strong> Provides version control and auditability.</p>
+    <p><strong>Analogy:</strong> Like a restaurant order ticket system.</p>
+    <pre><code>git add k8s.yaml &amp;&amp; git commit -m &#x27;Add&#x27; &amp;&amp; git push</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">52</span>
+    <span class="q-text">How do pull-based and push-based GitOps differ?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Push uses CI to apply changes. Pull uses an agent inside the cluster to fetch changes.</p>
+    <p><strong>Why it matters:</strong> Pull is more secure (no exposed credentials).</p>
+    <p><strong>Analogy:</strong> Push: delivery driver. Pull: fetching your own mail.</p>
+    <pre><code># Push: jenkins running kubectl apply
+# Pull: Flux agent running inside cluster</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">53</span>
+    <span class="q-text">How do you handle secrets in a GitOps workflow?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use Sealed Secrets or SOPS to encrypt secrets before committing.</p>
+    <p><strong>Why it matters:</strong> Prevents sensitive data exposure in Git history.</p>
+    <p><strong>Analogy:</strong> Sending a locked safe in the mail.</p>
+    <pre><code>kubeseal --format=yaml &lt; secret.yaml &gt; sealed-secret.yaml</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">54</span>
+    <span class="q-text">What is configuration drift in GitOps?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> When live state diverges from the desired state in Git.</p>
+    <p><strong>Why it matters:</strong> GitOps agents detect and automatically correct this drift.</p>
+    <p><strong>Analogy:</strong> A thermostat fixing the room temperature.</p>
+    <pre><code># Agent automatically reverts manual changes
+kubectl edit deployment my-app</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">55</span>
+    <span class="q-text">How does GitOps improve disaster recovery?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Entire state is in Git; a new cluster can be recreated by applying the repo.</p>
+    <p><strong>Why it matters:</strong> Reduces RTO significantly.</p>
+    <p><strong>Analogy:</strong> Having complete blueprints to rebuild a burned house.</p>
+    <pre><code>flux bootstrap github --owner=$USER --repository=my-infra</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">56</span>
+    <span class="q-text">How do you manage multiple environments in GitOps?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use directories (base/overlays), branches, or Kustomize.</p>
+    <p><strong>Why it matters:</strong> Ensures environment parity.</p>
+    <p><strong>Analogy:</strong> Different stages for a play using the same script.</p>
+    <pre><code>├── base
+└── overlays
+    ├── dev
+    └── prod</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">57</span>
+    <span class="q-text">What is the role of an admission controller in GitOps?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Enforces policies (OPA) on resources before they are applied.</p>
+    <p><strong>Why it matters:</strong> Adds security and compliance.</p>
+    <p><strong>Analogy:</strong> A bouncer checking IDs.</p>
+    <pre><code>apiVersion: constraints.gatekeeper.sh/v1beta1</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">58</span>
+    <span class="q-text">How do you rollback a release in GitOps?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Revert the commit in Git; the agent syncs the previous state.</p>
+    <p><strong>Why it matters:</strong> Clear audit trail of rollbacks.</p>
+    <p><strong>Analogy:</strong> Using the Undo button.</p>
+    <pre><code>git revert &lt;bad-commit-hash&gt;
+git push origin main</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">59</span>
+    <span class="q-text">Why is immutability important in GitOps?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Components are replaced, not modified.</p>
+    <p><strong>Why it matters:</strong> Prevents &#x27;works on my machine&#x27; issues.</p>
+    <p><strong>Analogy:</strong> Printing a new photo instead of painting over one.</p>
+    <pre><code>image: my-app:v1.2.3 # Use specific tags</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">60</span>
+    <span class="q-text">How do you handle image updates in GitOps?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Tools monitor registries and automatically commit new tags to Git.</p>
+    <p><strong>Why it matters:</strong> Automates CD while keeping Git as the truth.</p>
+    <p><strong>Analogy:</strong> A smart fridge ordering milk.</p>
+    <pre><code>kind: ImageUpdateAutomation</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">61</span>
+    <span class="q-text">What are the limitations of GitOps?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Can be slow for rapid local development loops.</p>
+    <p><strong>Why it matters:</strong> Dictates tool choice for local vs prod.</p>
+    <p><strong>Analogy:</strong> A cargo ship: great for large hauls, bad for quick grocery runs.</p>
+    <pre><code>skaffold dev # better for local</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">62</span>
+    <span class="q-text">How does GitOps interact with CI?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> CI builds images; GitOps (CD) deploys them.</p>
+    <p><strong>Why it matters:</strong> Decouples build from deployment.</p>
+    <p><strong>Analogy:</strong> CI is the kitchen; GitOps is the waiter.</p>
+    <pre><code>docker push my-app:v2 # CI ends here</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">63</span>
+    <span class="q-text">Declarative vs Imperative in GitOps?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Declarative = desired state. Imperative = steps to get there. GitOps is declarative.</p>
+    <p><strong>Why it matters:</strong> Allows automatic state reconciliation.</p>
+    <p><strong>Analogy:</strong> Giving an address vs step-by-step directions.</p>
+    <pre><code>kind: Deployment # Declarative</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">64</span>
+    <span class="q-text">How do you audit infrastructure changes with GitOps?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Git commit history is the audit log.</p>
+    <p><strong>Why it matters:</strong> Crucial for compliance.</p>
+    <p><strong>Analogy:</strong> A permanent bank ledger.</p>
+    <pre><code>git log --oneline --stat</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">65</span>
+    <span class="q-text">How do you manage cross-cluster dependencies in GitOps?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use features like dependsOn or sync waves.</p>
+    <p><strong>Why it matters:</strong> Prevents apps from crashing if DB isn&#x27;t ready.</p>
+    <p><strong>Analogy:</strong> Building a foundation before walls.</p>
+    <pre><code>dependsOn:
+  - name: infrastructure</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">66</span>
+    <span class="q-text">What is &#x27;Reconciliation&#x27; in GitOps?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> The loop where the agent compares live state to Git and applies differences.</p>
+    <p><strong>Why it matters:</strong> The core engine of GitOps.</p>
+    <p><strong>Analogy:</strong> A manager checking inventory.</p>
+    <pre><code>if live != git: apply(git)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">67</span>
+    <span class="q-text">Can GitOps manage non-K8s infrastructure?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Yes, using Crossplane or Terraform controllers.</p>
+    <p><strong>Why it matters:</strong> Unifies app and infra deployment.</p>
+    <p><strong>Analogy:</strong> A universal remote.</p>
+    <pre><code>kind: Bucket # AWS S3 via Crossplane</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">68</span>
+    <span class="q-text">How do you handle breaking changes in GitOps?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use canary deployments (Flagger) managed via Git.</p>
+    <p><strong>Why it matters:</strong> Minimizes user impact.</p>
+    <p><strong>Analogy:</strong> Tasting a spoonful of soup first.</p>
+    <pre><code>kind: Canary</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">69</span>
+    <span class="q-text">What is the &#x27;Single Source of Truth&#x27; principle?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Git is the only place config is defined.</p>
+    <p><strong>Why it matters:</strong> Eliminates ambiguity.</p>
+    <p><strong>Analogy:</strong> The master copy of a bakery recipe.</p>
+    <pre><code>kubectl apply -f manual.yaml # Antipattern</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="gitops">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">70</span>
+    <span class="q-text">Which tools are most popular for GitOps?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> ArgoCD and Flux are the CNCF graduated standards.</p>
+    <p><strong>Why it matters:</strong> Knowing industry standards helps tool selection.</p>
+    <p><strong>Analogy:</strong> Like choosing between iOS and Android.</p>
+    <pre><code>flux check || argocd version</code></pre>
+  </div>
+</div>
+
+<!-- CATEGORY 10: Flux CD -->
+<div class="category-header" data-category="flux">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">Flux CD</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">71</span>
+    <span class="q-text">What is Flux?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> A CNCF tool for keeping K8s clusters in sync with Git repos.</p>
+    <p><strong>Why it matters:</strong> Provides robust, native continuous delivery.</p>
+    <p><strong>Analogy:</strong> An automated librarian checking a catalog.</p>
+    <pre><code>flux get kustomizations</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">72</span>
+    <span class="q-text">What are Flux Source Controllers?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Fetches artifacts from external systems (Git, Helm, S3).</p>
+    <p><strong>Why it matters:</strong> Abstracts retrieval so deployment controllers only handle artifacts.</p>
+    <p><strong>Analogy:</strong> A purchasing department.</p>
+    <pre><code>kind: GitRepository</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">73</span>
+    <span class="q-text">How does the Flux Kustomize Controller work?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Applies Kustomize overlays to artifacts from the Source Controller.</p>
+    <p><strong>Why it matters:</strong> Allows dynamic environment configuration.</p>
+    <p><strong>Analogy:</strong> Applying different paint colors on an assembly line.</p>
+    <pre><code>kind: Kustomization</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">74</span>
+    <span class="q-text">How does Flux handle Helm releases?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Fetches charts via Source Controller and installs them via HelmRelease CRDs.</p>
+    <p><strong>Why it matters:</strong> Brings GitOps to standard Helm charts.</p>
+    <p><strong>Analogy:</strong> An automated mechanic reading a manual.</p>
+    <pre><code>kind: HelmRelease</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">75</span>
+    <span class="q-text">What is flux bootstrap?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Installs Flux on a cluster and configures it to manage itself from Git.</p>
+    <p><strong>Why it matters:</strong> Establishes the fundamental GitOps loop.</p>
+    <p><strong>Analogy:</strong> A robot building itself.</p>
+    <pre><code>flux bootstrap github --owner=my-org --repository=infra</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">76</span>
+    <span class="q-text">How do you debug a failing Flux synchronization?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Check status of CRDs and inspect controller logs.</p>
+    <p><strong>Why it matters:</strong> Identifies network vs logic issues.</p>
+    <p><strong>Analogy:</strong> Checking if a lamp is plugged in.</p>
+    <pre><code>kubectl logs -n flux-system deploy/kustomize-controller</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">77</span>
+    <span class="q-text">How does Flux support multi-tenancy?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Uses K8s RBAC and service accounts for Kustomizations to impersonate.</p>
+    <p><strong>Why it matters:</strong> Prevents teams from overwriting each other.</p>
+    <p><strong>Analogy:</strong> Separate locked filing cabinets.</p>
+    <pre><code>serviceAccountName: team-a-deployer</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">78</span>
+    <span class="q-text">What is Flux Image Update Automation?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Scans registries for new images and patches the Git repo automatically.</p>
+    <p><strong>Why it matters:</strong> Closes the loop between CI and CD.</p>
+    <p><strong>Analogy:</strong> A smart fridge ordering milk.</p>
+    <pre><code>kind: ImageUpdateAutomation</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">79</span>
+    <span class="q-text">How do you pause reconciliation in Flux?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use --suspend flag or suspend: true in spec.</p>
+    <p><strong>Why it matters:</strong> Useful during critical manual interventions.</p>
+    <p><strong>Analogy:</strong> Emergency stop button on a conveyor belt.</p>
+    <pre><code>flux suspend kustomization webapp</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">80</span>
+    <span class="q-text">How does Flux integrate with notification systems?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Notification Controller handles inbound webhooks and outbound alerts.</p>
+    <p><strong>Why it matters:</strong> Keeps teams informed of deployment status.</p>
+    <p><strong>Analogy:</strong> Getting a delivery text message.</p>
+    <pre><code>kind: Alert</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">81</span>
+    <span class="q-text">What is health checking in Flux Kustomizations?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Checks health of deployed resources before considering sync successful.</p>
+    <p><strong>Why it matters:</strong> Prevents cascading failures.</p>
+    <p><strong>Analogy:</strong> Verifying a bridge can hold weight.</p>
+    <pre><code>healthChecks:
+  - kind: Deployment</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">82</span>
+    <span class="q-text">How do you handle secret decryption with Flux?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Natively supports SOPS to decrypt secrets on-the-fly.</p>
+    <p><strong>Why it matters:</strong> Secure storage in Git with automated deployment.</p>
+    <p><strong>Analogy:</strong> An automatic mail opener with a decryption key.</p>
+    <pre><code>provider: sops</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">83</span>
+    <span class="q-text">How does Flux differ from ArgoCD?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Flux is headless/CLI-driven; ArgoCD has a rich web UI.</p>
+    <p><strong>Why it matters:</strong> Influences tool choice based on team preference.</p>
+    <p><strong>Analogy:</strong> CLI terminal vs Desktop GUI.</p>
+    <pre><code>flux get all # No UI needed</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">84</span>
+    <span class="q-text">What is the purpose of Flux dependsOn?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Forces an ordering of Kustomizations or HelmReleases.</p>
+    <p><strong>Why it matters:</strong> Critical for complex stacks (e.g., DB before App).</p>
+    <p><strong>Analogy:</strong> Foundation before walls.</p>
+    <pre><code>dependsOn:
+  - name: cert-manager</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">85</span>
+    <span class="q-text">How does Flux interact with Flagger?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Flux deploys baseline; Flagger manages canary rollout routing.</p>
+    <p><strong>Why it matters:</strong> Enables advanced deployment strategies.</p>
+    <p><strong>Analogy:</strong> Placing food on buffet vs letting people taste it slowly.</p>
+    <pre><code>kind: Canary</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">86</span>
+    <span class="q-text">Can Flux pull configurations from S3?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Yes, Source Controller supports Bucket resources.</p>
+    <p><strong>Why it matters:</strong> Useful for artifact promotion pipelines.</p>
+    <p><strong>Analogy:</strong> Getting instructions from a digital dropbox.</p>
+    <pre><code>kind: Bucket</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">87</span>
+    <span class="q-text">How do you trigger an immediate sync in Flux?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use flux reconcile command to bypass polling interval.</p>
+    <p><strong>Why it matters:</strong> Speeds up feedback loops.</p>
+    <p><strong>Analogy:</strong> Hitting the Refresh button.</p>
+    <pre><code>flux reconcile source git my-repo</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="flux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">88</span>
+    <span class="q-text">What are Flux Receivers?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Webhooks for CI systems to ping when a new commit is pushed.</p>
+    <p><strong>Why it matters:</strong> Removes polling delay.</p>
+    <p><strong>Analogy:</strong> Delivery driver ringing doorbell.</p>
+    <pre><code>kind: Receiver</code></pre>
+  </div>
+</div>
+
+<!-- CATEGORY 11: Traefik -->
+<div class="category-header" data-category="traefik">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">Traefik</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">89</span>
+    <span class="q-text">What makes Traefik different from Nginx?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Cloud-native, integrates with K8s/Docker, dynamically discovers services.</p>
+    <p><strong>Why it matters:</strong> Eliminates manual config reloads.</p>
+    <p><strong>Analogy:</strong> An automatic switchboard operator.</p>
+    <pre><code>traefik.http.routers.my-app.rule=Host(`app.local`)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">90</span>
+    <span class="q-text">What is an EntryPoint in Traefik?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Network ports Traefik listens on (e.g., 80, 443).</p>
+    <p><strong>Why it matters:</strong> Defines how traffic enters the proxy.</p>
+    <p><strong>Analogy:</strong> Doors to a building.</p>
+    <pre><code>--entrypoints.web.address=:80</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">91</span>
+    <span class="q-text">How do Traefik Routers work?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Analyze incoming requests and connect them to Services.</p>
+    <p><strong>Why it matters:</strong> Decision engine for traffic routing.</p>
+    <p><strong>Analogy:</strong> A traffic cop checking GPS destinations.</p>
+    <pre><code>rule=Host(`api.example.com`)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">92</span>
+    <span class="q-text">What are Traefik Middlewares used for?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Tweak requests/responses (auth, rate limiting, headers) before reaching services.</p>
+    <p><strong>Why it matters:</strong> Centralizes logic at the proxy level.</p>
+    <p><strong>Analogy:</strong> A security checkpoint modifying a visitor badge.</p>
+    <pre><code>middlewares.my-auth.basicauth.users=admin:hash</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">93</span>
+    <span class="q-text">How does Traefik automate Let&#x27;s Encrypt?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Built-in ACME support automatically requests and renews TLS certs.</p>
+    <p><strong>Why it matters:</strong> Prevents manual cert expiration outages.</p>
+    <p><strong>Analogy:</strong> Personal assistant renewing your passport.</p>
+    <pre><code>acme.tlschallenge=true</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">94</span>
+    <span class="q-text">What is a Traefik Service?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Configures how to reach the backend app and handles load balancing.</p>
+    <p><strong>Why it matters:</strong> Distributes traffic across healthy containers.</p>
+    <p><strong>Analogy:</strong> Dispatcher sending taxis to drivers.</p>
+    <pre><code>loadbalancer.server.port=8080</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">95</span>
+    <span class="q-text">How do you enforce HTTP to HTTPS redirection?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Configure global redirection on the HTTP EntryPoint.</p>
+    <p><strong>Why it matters:</strong> Ensures all user traffic is encrypted.</p>
+    <p><strong>Analogy:</strong> Toll booth redirecting to a safer highway.</p>
+    <pre><code>redirections.entryPoint.scheme=https</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">96</span>
+    <span class="q-text">What is the Traefik IngressRoute CRD?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Traefik&#x27;s custom K8s resource for advanced routing features not in standard Ingress.</p>
+    <p><strong>Why it matters:</strong> Provides access to Middlewares and TCP routing.</p>
+    <p><strong>Analogy:</strong> Specialized mechanic&#x27;s toolkit.</p>
+    <pre><code>kind: IngressRoute</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">97</span>
+    <span class="q-text">How does Traefik handle TCP/UDP traffic?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Supports TCP/UDP routing alongside HTTP via specific EntryPoints.</p>
+    <p><strong>Why it matters:</strong> Can proxy databases and game servers.</p>
+    <p><strong>Analogy:</strong> Shipping company transporting letters and heavy cargo.</p>
+    <pre><code>traefik.tcp.routers.my-db.rule=HostSNI(`db.example.com`)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">98</span>
+    <span class="q-text">What is the Traefik Dashboard?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Built-in web UI showing real-time proxy configuration.</p>
+    <p><strong>Why it matters:</strong> Useful for debugging routes.</p>
+    <p><strong>Analogy:</strong> Diagnostic scanner under a car hood.</p>
+    <pre><code>--api.insecure=true</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">99</span>
+    <span class="q-text">How do you do Canary deployments in Traefik?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use Weighted Round Robin (WRR) services to split traffic by weight.</p>
+    <p><strong>Why it matters:</strong> Safe rollout testing.</p>
+    <p><strong>Analogy:</strong> Mixing a small amount of new seasoning to taste.</p>
+    <pre><code>loadbalancer.server.port=80 # + weights</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">100</span>
+    <span class="q-text">What is a Traefik Provider?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Infra components (Docker, K8s) Traefik watches to discover routes dynamically.</p>
+    <p><strong>Why it matters:</strong> Makes Traefik dynamic without static files.</p>
+    <p><strong>Analogy:</strong> News reporters feeding a news anchor.</p>
+    <pre><code>--providers.docker=true</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">101</span>
+    <span class="q-text">How do you rate limit APIs with Traefik?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use the RateLimit middleware to restrict requests per time period.</p>
+    <p><strong>Why it matters:</strong> Protects backends from DDoS.</p>
+    <p><strong>Analogy:</strong> Theme park ride letting 10 people on every 5 mins.</p>
+    <pre><code>ratelimit.average=100</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">102</span>
+    <span class="q-text">How do you view Traefik access logs?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Enable access logging in static config, often output as JSON.</p>
+    <p><strong>Why it matters:</strong> Auditing and debugging 404s.</p>
+    <p><strong>Analogy:</strong> Security camera recording building entries.</p>
+    <pre><code>--accesslog.format=json</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">103</span>
+    <span class="q-text">What is Traefik Pilot / Hub?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> SaaS control plane for observing multiple Traefik instances.</p>
+    <p><strong>Why it matters:</strong> Multi-cluster visibility.</p>
+    <p><strong>Analogy:</strong> Air traffic control tower.</p>
+    <pre><code>--pilot.token=your-token</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">104</span>
+    <span class="q-text">How do you strip a path prefix in Traefik?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use the StripPrefix middleware before forwarding to the app.</p>
+    <p><strong>Why it matters:</strong> Allows hosting multiple apps on different paths without app logic changes.</p>
+    <p><strong>Analogy:</strong> Stripping outer envelope of a package.</p>
+    <pre><code>stripprefix.prefixes=/api</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">105</span>
+    <span class="q-text">How do you configure mutual TLS (mTLS) in Traefik?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Configure TLS options to RequireAndVerifyClientCert.</p>
+    <p><strong>Why it matters:</strong> Ensures only authenticated clients access the proxy.</p>
+    <p><strong>Analogy:</strong> Speakeasy requiring a secret membership card.</p>
+    <pre><code>clientAuthType: RequireAndVerifyClientCert</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="traefik">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">106</span>
+    <span class="q-text">How do you run Traefik HA with Let&#x27;s Encrypt?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Requires a distributed store (Consul) or Traefik EE, otherwise acme.json conflicts.</p>
+    <p><strong>Why it matters:</strong> Critical for uptime state management.</p>
+    <p><strong>Analogy:</strong> Twins trying to sign the same document need coordination.</p>
+    <pre><code># Requires Consul/Etcd backend for acme.json</code></pre>
+  </div>
+</div>
+
+<!-- CATEGORY 12: Helm Charts -->
+<div class="category-header" data-category="helmchart">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">Helm Charts</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">107</span>
+    <span class="q-text">What is a Helm Chart and why is it used?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> A collection of files describing a set of K8s resources (a package manager for K8s).</p>
+    <p><strong>Why it matters:</strong> Simplifies deploying complex apps.</p>
+    <p><strong>Analogy:</strong> A flat-pack furniture kit.</p>
+    <pre><code>helm install my-release bitnami/mysql</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">108</span>
+    <span class="q-text">install vs upgrade --install in Helm?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> upgrade --install installs if missing, upgrades if existing.</p>
+    <p><strong>Why it matters:</strong> Idempotent and safer for CI/CD.</p>
+    <p><strong>Analogy:</strong> Paint house red vs build house and paint red.</p>
+    <pre><code>helm upgrade --install my-app ./chart</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">109</span>
+    <span class="q-text">How do you pass environment configs to a chart?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use values.yaml or --set flag during install.</p>
+    <p><strong>Why it matters:</strong> Deploy same chart to Dev/Prod with different configs.</p>
+    <p><strong>Analogy:</strong> Ordering a standard pizza with custom toppings.</p>
+    <pre><code>helm upgrade ... -f values-prod.yaml</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">110</span>
+    <span class="q-text">What is the purpose of _helpers.tpl?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Defines reusable Go template blocks (named templates).</p>
+    <p><strong>Why it matters:</strong> Keeps code DRY.</p>
+    <p><strong>Analogy:</strong> A dictionary of common phrases to stamp on documents.</p>
+    <pre><code>{{- define &quot;my-chart.fullname&quot; -}}</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">111</span>
+    <span class="q-text">How do you manage dependencies in a chart?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Defined in Chart.yaml under dependencies block.</p>
+    <p><strong>Why it matters:</strong> Compose complex apps from maintained charts.</p>
+    <p><strong>Analogy:</strong> Recipe calling for pre-made brand sauce.</p>
+    <pre><code>dependencies:
+  - name: postgresql</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">112</span>
+    <span class="q-text">What is a Helm Hook?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Allows intervention at specific release lifecycle points (e.g., pre-install).</p>
+    <p><strong>Why it matters:</strong> Useful for DB migrations before app starts.</p>
+    <p><strong>Analogy:</strong> Director calling Action! before a scene.</p>
+    <pre><code>annotations:
+  &quot;helm.sh/hook&quot;: pre-upgrade</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">113</span>
+    <span class="q-text">How do you debug a failing Helm chart template?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use helm template to dry-run and print resulting YAML.</p>
+    <p><strong>Why it matters:</strong> Catches syntax errors before deployment.</p>
+    <p><strong>Analogy:</strong> Proofreading a letter.</p>
+    <pre><code>helm template my-release ./my-chart --debug</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">114</span>
+    <span class="q-text">How do you rollback a failed deployment?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use helm rollback to revert to a previous known-good revision.</p>
+    <p><strong>Why it matters:</strong> Rapid recovery during incidents.</p>
+    <p><strong>Analogy:</strong> Time machine to go back 5 minutes.</p>
+    <pre><code>helm rollback my-release 2</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">115</span>
+    <span class="q-text">Difference between Helm and Kustomize?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Helm uses Go templates; Kustomize uses patch overlays on raw YAML.</p>
+    <p><strong>Why it matters:</strong> Helm is for distributing software; Kustomize for internal apps.</p>
+    <p><strong>Analogy:</strong> Mad Libs vs taping new paragraphs over an essay.</p>
+    <pre><code># Helm: {{ .Values.x }}
+# Kustomize: patchesStrategicMerge</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">116</span>
+    <span class="q-text">How do you test a Helm chart?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Include tests in templates/tests/ and run helm test.</p>
+    <p><strong>Why it matters:</strong> Validates the deployed app functions correctly.</p>
+    <p><strong>Analogy:</strong> Test-driving a car after assembly.</p>
+    <pre><code>helm test my-release</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">117</span>
+    <span class="q-text">How do you publish a Helm chart?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> helm package creates a .tgz, upload to a repo, update index.</p>
+    <p><strong>Why it matters:</strong> Makes it available for others.</p>
+    <p><strong>Analogy:</strong> Putting a finished book in a library.</p>
+    <pre><code>helm package .
+helm repo index .</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">118</span>
+    <span class="q-text">What does --wait do in Helm?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Blocks until all pods and services are ready.</p>
+    <p><strong>Why it matters:</strong> Crucial in CI/CD to ensure success before next step.</p>
+    <p><strong>Analogy:</strong> Staying at restaurant to ensure friend likes the food.</p>
+    <pre><code>helm upgrade --install ... --wait</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">119</span>
+    <span class="q-text">How do you handle secrets in Helm charts?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Inject via CI/CD --set-string, never store in values.yaml.</p>
+    <p><strong>Why it matters:</strong> Prevents checking secrets into version control.</p>
+    <p><strong>Analogy:</strong> Giving combo only to person in front of safe.</p>
+    <pre><code>--set-string db.password=$SECRET</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">120</span>
+    <span class="q-text">How to prevent resource deletion on helm uninstall?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Add helm.sh/resource-policy: keep annotation.</p>
+    <p><strong>Why it matters:</strong> Preserves critical data like PVCs.</p>
+    <p><strong>Analogy:</strong> &#x27;Do Not Throw Away&#x27; sticker on a box.</p>
+    <pre><code>&quot;helm.sh/resource-policy&quot;: keep</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">121</span>
+    <span class="q-text">What is a Library Chart?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Contains only Go templates (no resources) to be reused by other charts.</p>
+    <p><strong>Why it matters:</strong> Shares logic and enforces standards.</p>
+    <p><strong>Analogy:</strong> A shared code library (.dll).</p>
+    <pre><code>type: library</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">122</span>
+    <span class="q-text">How do you conditionally create resources?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use Go template if statements around the resource block.</p>
+    <p><strong>Why it matters:</strong> Allows toggling features like Ingress on/off.</p>
+    <p><strong>Analogy:</strong> Light switch in blueprint deciding if room is built.</p>
+    <pre><code>{{- if .Values.ingress.enabled }}</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">123</span>
+    <span class="q-text">How does Helm manage state?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Helm 3 stores release state as Secrets in the cluster namespace.</p>
+    <p><strong>Why it matters:</strong> Eliminates insecure Tiller component.</p>
+    <p><strong>Analogy:</strong> Medical records taped to hospital bed.</p>
+    <pre><code>kubectl get secrets -l owner=helm</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="helmchart">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">124</span>
+    <span class="q-text">How do you loop over a list in a Helm chart?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use the range action in Go templates to iterate over values.yaml.</p>
+    <p><strong>Why it matters:</strong> Dynamically generate env vars or ports.</p>
+    <p><strong>Analogy:</strong> Printing press stamping multiple copies.</p>
+    <pre><code>{{- range .Values.envVars }}</code></pre>
+  </div>
+</div>
+
+<!-- CATEGORY 13: Docker -->
+<div class="category-header" data-category="docker">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">Docker</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">125</span>
+    <span class="q-text">Docker vs Virtualization?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Docker virtualizes the OS space; VMs virtualize hardware and run Guest OS.</p>
+    <p><strong>Why it matters:</strong> Containers are lighter and start faster.</p>
+    <p><strong>Analogy:</strong> Apartments in a building vs Separate houses.</p>
+    <pre><code># Containers start in seconds</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">126</span>
+    <span class="q-text">What is a multi-stage Docker build?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Using multiple FROM statements to compile in one stage, and copy binary to a minimal final stage.</p>
+    <p><strong>Why it matters:</strong> Reduces image size and attack surface.</p>
+    <p><strong>Analogy:</strong> Building a car in a factory, shipping only the car.</p>
+    <pre><code>FROM golang AS builder
+...
+COPY --from=builder /app /app</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">127</span>
+    <span class="q-text">Why order Dockerfile instructions carefully?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Docker caches layers. Changing one layer rebuilds all subsequent ones.</p>
+    <p><strong>Why it matters:</strong> Maximizes cache hits, reducing build times.</p>
+    <p><strong>Analogy:</strong> Packing heavy suitcase items at the bottom.</p>
+    <pre><code>COPY package.json .
+RUN npm install # Do before copying source code</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">128</span>
+    <span class="q-text">CMD vs ENTRYPOINT?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> ENTRYPOINT sets the executable; CMD provides default arguments.</p>
+    <p><strong>Why it matters:</strong> Makes containers behave like CLI tools.</p>
+    <p><strong>Analogy:</strong> ENTRYPOINT = engine. CMD = default speed.</p>
+    <pre><code>ENTRYPOINT [&quot;python&quot;]
+CMD [&quot;app.py&quot;]</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">129</span>
+    <span class="q-text">How to reduce container attack surface?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use minimal base images, run non-root, drop capabilities.</p>
+    <p><strong>Why it matters:</strong> Prevents host compromise if app is hacked.</p>
+    <p><strong>Analogy:</strong> Removing keys from ignition and locking doors.</p>
+    <pre><code>USER 1000:1000</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">130</span>
+    <span class="q-text">What are Docker volumes?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Mechanism to persist data outside the container&#x27;s writable layer.</p>
+    <p><strong>Why it matters:</strong> Prevents data loss when containers are deleted.</p>
+    <p><strong>Analogy:</strong> External hard drive plugged into a laptop.</p>
+    <pre><code>docker run -v my-data:/data</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">131</span>
+    <span class="q-text">What is the Docker daemon?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Background service (dockerd) managing images/containers.</p>
+    <p><strong>Why it matters:</strong> The actual engine executing tasks, CLI just sends commands.</p>
+    <p><strong>Analogy:</strong> Chef in kitchen vs Waiter (CLI).</p>
+    <pre><code>systemctl status docker</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">132</span>
+    <span class="q-text">How to clean up unused Docker resources?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use docker system prune.</p>
+    <p><strong>Why it matters:</strong> Prevents disk space exhaustion.</p>
+    <p><strong>Analogy:</strong> Taking out trash/clearing garage.</p>
+    <pre><code>docker system prune -a --volumes</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">133</span>
+    <span class="q-text">What is a .dockerignore file?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Excludes patterns when sending build context to daemon.</p>
+    <p><strong>Why it matters:</strong> Speeds up builds and prevents secret leakage.</p>
+    <p><strong>Analogy:</strong> Bouncer keeping unlisted people out.</p>
+    <pre><code>node_modules/
+.git/</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">134</span>
+    <span class="q-text">What is Docker Compose?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Tool for defining/running multi-container apps via YAML.</p>
+    <p><strong>Why it matters:</strong> Simplifies local dev stack spinup.</p>
+    <p><strong>Analogy:</strong> Conductor managing an orchestra.</p>
+    <pre><code>docker-compose up -d</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">135</span>
+    <span class="q-text">COPY vs ADD in Dockerfile?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> COPY just copies. ADD can also extract tars and fetch URLs.</p>
+    <p><strong>Why it matters:</strong> COPY is preferred for transparency unless extraction needed.</p>
+    <p><strong>Analogy:</strong> Handing package vs handing and opening it.</p>
+    <pre><code>COPY app.jar /app/</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">136</span>
+    <span class="q-text">How do containers communicate?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Via container names as DNS hostnames on user-defined bridge networks.</p>
+    <p><strong>Why it matters:</strong> Microservices talk without hardcoded IPs.</p>
+    <p><strong>Analogy:</strong> Calling coworker via office directory by name.</p>
+    <pre><code>docker run --network my-net --name db postgres</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">137</span>
+    <span class="q-text">What happens if main process exits?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Container stops immediately.</p>
+    <p><strong>Why it matters:</strong> Must run processes in foreground (e.g., daemon off).</p>
+    <p><strong>Analogy:</strong> Theater closes when movie finishes.</p>
+    <pre><code>nginx -g &#x27;daemon off;&#x27;</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">138</span>
+    <span class="q-text">How to inspect image/container metadata?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use docker inspect for detailed JSON configuration.</p>
+    <p><strong>Why it matters:</strong> Debugging network IPs and volumes.</p>
+    <p><strong>Analogy:</strong> Looking at EXIF metadata of a digital photo.</p>
+    <pre><code>docker inspect &lt;id&gt;</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">139</span>
+    <span class="q-text">What is Docker BuildKit?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Modern build engine for concurrent execution and advanced caching.</p>
+    <p><strong>Why it matters:</strong> Speeds up complex image builds.</p>
+    <p><strong>Analogy:</strong> Multi-lane highway for the build process.</p>
+    <pre><code>DOCKER_BUILDKIT=1 docker build .</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">140</span>
+    <span class="q-text">How to pass secrets to build securely?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use BuildKit secret mounting during RUN.</p>
+    <p><strong>Why it matters:</strong> Prevents credentials baking into image layers.</p>
+    <p><strong>Analogy:</strong> Memorizing temp password to open door, then forgetting it.</p>
+    <pre><code>RUN --mount=type=secret,id=token npm install</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">141</span>
+    <span class="q-text">What is an OCI-compliant image?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Open Container Initiative standard format.</p>
+    <p><strong>Why it matters:</strong> Ensures images run on containerd/CRI-O without vendor lock-in.</p>
+    <p><strong>Analogy:</strong> Standardized shipping containers fitting any truck.</p>
+    <pre><code># Architectural standard</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="docker">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">142</span>
+    <span class="q-text">How to limit container CPU/memory?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use --memory and --cpus flags to leverage Linux cgroups.</p>
+    <p><strong>Why it matters:</strong> Prevents memory leaks from crashing host.</p>
+    <p><strong>Analogy:</strong> Spending limit on credit card.</p>
+    <pre><code>docker run --memory=&quot;512m&quot;</code></pre>
+  </div>
+</div>
+
+<!-- CATEGORY 14: Kubernetes -->
+<div class="category-header" data-category="kubernetes">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">Kubernetes</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">143</span>
+    <span class="q-text">Role of the Kubelet?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Primary node agent ensuring containers in PodSpecs are running.</p>
+    <p><strong>Why it matters:</strong> Bridge between control plane and container runtime.</p>
+    <p><strong>Analogy:</strong> Foreman ensuring workers build the architect&#x27;s design.</p>
+    <pre><code>systemctl status kubelet</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">144</span>
+    <span class="q-text">What is a StatefulSet?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Manages stateful apps with guarantees about ordering and stable network IDs.</p>
+    <p><strong>Why it matters:</strong> Essential for databases where data locality matters.</p>
+    <p><strong>Analogy:</strong> Deployments = cattle; StatefulSets = pets.</p>
+    <pre><code>kind: StatefulSet</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">145</span>
+    <span class="q-text">Liveness vs Readiness probe?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Liveness = restart if fail. Readiness = remove from LoadBalancer if fail.</p>
+    <p><strong>Why it matters:</strong> Prevents routing to booting pods; recovers deadlocks.</p>
+    <p><strong>Analogy:</strong> Liveness: CPR. Readiness: Dressed for work.</p>
+    <pre><code>livenessProbe:
+  httpGet:</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">146</span>
+    <span class="q-text">How does K8s handle Service Discovery?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> CoreDNS creates DNS records for Services; Pods use internal DNS.</p>
+    <p><strong>Why it matters:</strong> Provides stable endpoints for ephemeral Pod IPs.</p>
+    <p><strong>Analogy:</strong> Saving contact by name, not phone number.</p>
+    <pre><code>curl http://my-service.svc.cluster.local</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">147</span>
+    <span class="q-text">Taints and Tolerations?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Taints repel pods from nodes. Tolerations allow pods to schedule on tainted nodes.</p>
+    <p><strong>Why it matters:</strong> Dedicate nodes to specific workloads (e.g. GPUs).</p>
+    <p><strong>Analogy:</strong> Taint = lock. Toleration = specific key.</p>
+    <pre><code>kubectl taint nodes node1 key=val:NoSchedule</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">148</span>
+    <span class="q-text">What is an Ingress?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Manages external HTTP/HTTPS access to cluster services.</p>
+    <p><strong>Why it matters:</strong> Exposes services securely without individual cloud LBs.</p>
+    <p><strong>Analogy:</strong> Receptionist directing you to correct department.</p>
+    <pre><code>kind: Ingress</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">149</span>
+    <span class="q-text">How to drain a node?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use kubectl drain to safely evict pods and cordon node.</p>
+    <p><strong>Why it matters:</strong> Zero downtime for node maintenance.</p>
+    <p><strong>Analogy:</strong> Evacuating room before painting walls.</p>
+    <pre><code>kubectl drain node-1 --ignore-daemonsets</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">150</span>
+    <span class="q-text">What is a DaemonSet?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Ensures a copy of a Pod runs on all Nodes.</p>
+    <p><strong>Why it matters:</strong> Used for log collection, monitoring, networking.</p>
+    <p><strong>Analogy:</strong> One security guard on every floor.</p>
+    <pre><code>kind: DaemonSet</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">151</span>
+    <span class="q-text">How does RBAC work in K8s?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Uses Roles to define permissions and RoleBindings to attach to Users/ServiceAccounts.</p>
+    <p><strong>Why it matters:</strong> Enforces principle of least privilege.</p>
+    <p><strong>Analogy:</strong> Keycards opening only specific doors.</p>
+    <pre><code>kubectl create role pod-reader</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">152</span>
+    <span class="q-text">What is a PodDisruptionBudget (PDB)?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Limits pods down simultaneously from voluntary disruptions.</p>
+    <p><strong>Why it matters:</strong> Protects HA apps during node drains.</p>
+    <p><strong>Analogy:</strong> No more than 25% of team on vacation same day.</p>
+    <pre><code>kind: PodDisruptionBudget</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">153</span>
+    <span class="q-text">OOMKilled status?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Container exceeded memory limit; kernel killed it.</p>
+    <p><strong>Why it matters:</strong> Indicates memory leak or under-provisioning.</p>
+    <p><strong>Analogy:</strong> Circuit breaker tripping from too many appliances.</p>
+    <pre><code>kubectl describe pod | grep OOMKilled</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">154</span>
+    <span class="q-text">Purpose of Init Container?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Runs to completion before app containers start.</p>
+    <p><strong>Why it matters:</strong> Delay startup until DB ready or download configs.</p>
+    <p><strong>Analogy:</strong> Prep cooks chopping veg before head chef arrives.</p>
+    <pre><code>initContainers:
+- name: init-db</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">155</span>
+    <span class="q-text">Securely passing config to Pod?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use ConfigMaps and Secrets injected as env vars or mounted volumes.</p>
+    <p><strong>Why it matters:</strong> Decouples config from image.</p>
+    <p><strong>Analogy:</strong> Giving actor script before stage, not memorizing forever.</p>
+    <pre><code>envFrom:
+- configMapRef:</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">156</span>
+    <span class="q-text">What is a CRD?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> CustomResourceDefinition extends K8s API with custom object types.</p>
+    <p><strong>Why it matters:</strong> Foundation of Operator pattern for 3rd-party software.</p>
+    <p><strong>Analogy:</strong> Adding new vocabulary words to K8s dictionary.</p>
+    <pre><code>kubectl get crds</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">157</span>
+    <span class="q-text">ClusterIP vs NodePort vs LoadBalancer?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Internal-only vs port on node IP vs external cloud LB.</p>
+    <p><strong>Why it matters:</strong> Dictates how app can be accessed.</p>
+    <p><strong>Analogy:</strong> Office extension vs direct desk line vs 1-800 number.</p>
+    <pre><code>type: LoadBalancer</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">158</span>
+    <span class="q-text">How Scheduler works?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Selects best Node for Pod based on requests, constraints, taints.</p>
+    <p><strong>Why it matters:</strong> Distributes workloads optimally.</p>
+    <p><strong>Analogy:</strong> Hotel clerk assigning room based on guest needs.</p>
+    <pre><code>kubectl get events | grep Scheduled</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">159</span>
+    <span class="q-text">What is etcd?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Consistent key-value store used as K8s backing store.</p>
+    <p><strong>Why it matters:</strong> Single source of truth; if lost, cluster is lost.</p>
+    <p><strong>Analogy:</strong> Central nervous system memory bank.</p>
+    <pre><code>etcdctl snapshot save snapshot.db</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="kubernetes">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">160</span>
+    <span class="q-text">What are NetworkPolicies?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Specify how Pod groups communicate with each other.</p>
+    <p><strong>Why it matters:</strong> Implements zero-trust networking inside cluster.</p>
+    <p><strong>Analogy:</strong> Firewalls inside office building between departments.</p>
+    <pre><code>kind: NetworkPolicy</code></pre>
+  </div>
+</div>
+
+<!-- CATEGORY 15: AWS -->
+<div class="category-header" data-category="aws">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">AWS</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">161</span>
+    <span class="q-text">IAM Roles vs IAM Users?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Users have long-term credentials; Roles have temporary credentials assumed by trusted entities.</p>
+    <p><strong>Why it matters:</strong> Roles are much more secure for applications.</p>
+    <p><strong>Analogy:</strong> Employee badge vs expiring Visitor badge.</p>
+    <pre><code>aws sts assume-role</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">162</span>
+    <span class="q-text">VPC public vs private subnets?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Public subnets route to IGW; Private route to NAT Gateway.</p>
+    <p><strong>Why it matters:</strong> Security isolating DBs from internet.</p>
+    <p><strong>Analogy:</strong> Front yard (visible) vs Back yard (fenced).</p>
+    <pre><code>aws ec2 describe-route-tables</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">163</span>
+    <span class="q-text">Connect to EC2 without SSH keys?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use AWS Systems Manager (SSM) Session Manager.</p>
+    <p><strong>Why it matters:</strong> Eliminates bastion hosts and open port 22.</p>
+    <p><strong>Analogy:</strong> Invisible secure tunnel vs locked front door.</p>
+    <pre><code>aws ssm start-session</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">164</span>
+    <span class="q-text">S3 Standard vs Glacier?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Standard for frequent millisecond access; Glacier for cheap long-term archiving.</p>
+    <p><strong>Why it matters:</strong> Saves massive money on AWS bills.</p>
+    <p><strong>Analogy:</strong> Desk drawer vs deep-storage warehouse.</p>
+    <pre><code>--storage-class GLACIER</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">165</span>
+    <span class="q-text">High availability with AWS RDS?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Deploy Multi-AZ; AWS synchronously replicates to standby instance.</p>
+    <p><strong>Why it matters:</strong> Ensures survival during datacenter outages.</p>
+    <p><strong>Analogy:</strong> Backup generator kicking in instantly.</p>
+    <pre><code>--multi-az</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">166</span>
+    <span class="q-text">Auto Scaling vs Target Groups?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> ASG adds/removes EC2s; Target Groups route traffic from LB to them.</p>
+    <p><strong>Why it matters:</strong> Handles traffic spikes and saves money.</p>
+    <p><strong>Analogy:</strong> Calling in extra cashiers when lines get long.</p>
+    <pre><code>--desired-capacity 4</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">167</span>
+    <span class="q-text">CloudFormation vs Terraform?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> CF is AWS-native (JSON/YAML); TF is multi-cloud (HCL) with own state.</p>
+    <p><strong>Why it matters:</strong> TF for multi-cloud, CF for native integration.</p>
+    <p><strong>Analogy:</strong> Honda-only mechanic tool vs universal toolset.</p>
+    <pre><code>aws cloudformation deploy</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">168</span>
+    <span class="q-text">Purpose of AWS CloudTrail?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Records all API calls (who, when, IP).</p>
+    <p><strong>Why it matters:</strong> Crucial for security auditing and forensics.</p>
+    <p><strong>Analogy:</strong> Security camera recording ID badges.</p>
+    <pre><code>aws cloudtrail lookup-events</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">169</span>
+    <span class="q-text">What is AWS Lambda?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Serverless compute running code in response to events without provisioning servers.</p>
+    <p><strong>Why it matters:</strong> Pay only for milliseconds used; zero maintenance.</p>
+    <p><strong>Analogy:</strong> Renting a taxi for specific trip vs buying car.</p>
+    <pre><code>aws lambda invoke</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">170</span>
+    <span class="q-text">Secure data at rest in AWS?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use AWS KMS to encrypt EBS, S3, RDS.</p>
+    <p><strong>Why it matters:</strong> Data unreadable if hard drive physically stolen.</p>
+    <p><strong>Analogy:</strong> Translating diary to secret code before locking in safe.</p>
+    <pre><code>aws kms encrypt</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">171</span>
+    <span class="q-text">What is Amazon Route 53?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Highly available Cloud DNS and traffic routing.</p>
+    <p><strong>Why it matters:</strong> Translates names to IPs and routes away from failing regions.</p>
+    <p><strong>Analogy:</strong> Phonebook + intelligent switchboard operator.</p>
+    <pre><code>aws route53 list-hosted-zones</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">172</span>
+    <span class="q-text">Security Groups vs Network ACLs?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> SGs are stateful instance-level; NACLs are stateless subnet-level.</p>
+    <p><strong>Why it matters:</strong> Defense in depth.</p>
+    <p><strong>Analogy:</strong> NACL = front gate guard; SG = house lock.</p>
+    <pre><code># SGs stateful, NACLs stateless</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">173</span>
+    <span class="q-text">How to monitor AWS costs?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Cost Explorer, AWS Budgets, Cost Allocation Tags.</p>
+    <p><strong>Why it matters:</strong> Cloud costs can spiral out of control overnight.</p>
+    <p><strong>Analogy:</strong> Daily bank account alert to prevent overdraft.</p>
+    <pre><code>aws ce get-cost-and-usage</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">174</span>
+    <span class="q-text">What is AWS Fargate?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Serverless compute engine for containers (ECS/EKS).</p>
+    <p><strong>Why it matters:</strong> Removes burden of patching EC2 hosts.</p>
+    <p><strong>Analogy:</strong> Eating at restaurant vs buying groceries and cooking.</p>
+    <pre><code>--launch-type FARGATE</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">175</span>
+    <span class="q-text">Securely store API keys in AWS?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Secrets Manager or SSM Parameter Store.</p>
+    <p><strong>Why it matters:</strong> Prevents keys in GitHub or AMIs.</p>
+    <p><strong>Analogy:</strong> Secure digital vault to check out keys temporarily.</p>
+    <pre><code>aws secretsmanager get-secret-value</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">176</span>
+    <span class="q-text">What is AWS Transit Gateway?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Connects VPCs and on-prem via central hub.</p>
+    <p><strong>Why it matters:</strong> Reduces VPC peering complexity.</p>
+    <p><strong>Analogy:</strong> Airport hub connecting cities vs direct flights between all.</p>
+    <pre><code>aws ec2 describe-transit-gateways</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">177</span>
+    <span class="q-text">EFS vs EBS?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> EBS is block storage for one EC2; EFS is network file system for many.</p>
+    <p><strong>Why it matters:</strong> EBS = DBs; EFS = CMS shared data.</p>
+    <p><strong>Analogy:</strong> Laptop hard drive vs shared Google Drive.</p>
+    <pre><code>aws efs describe-file-systems</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="aws">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">178</span>
+    <span class="q-text">How CloudFront works?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> CDN caching content at edge locations worldwide.</p>
+    <p><strong>Why it matters:</strong> Reduces latency and origin server load.</p>
+    <p><strong>Analogy:</strong> Local branch library vs traveling to state library.</p>
+    <pre><code>aws cloudfront create-invalidation</code></pre>
+  </div>
+</div>
+
+<!-- CATEGORY 16: Local K8s (Minikube/Kind) -->
+<div class="category-header" data-category="local-k8s">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">Local K8s (Minikube/Kind)</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">179</span>
+    <span class="q-text">What is Kind?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Kubernetes IN Docker; runs local clusters using Docker containers as nodes.</p>
+    <p><strong>Why it matters:</strong> Extremely fast for CI and local testing.</p>
+    <p><strong>Analogy:</strong> Video game virtual sandbox.</p>
+    <pre><code>kind create cluster</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">180</span>
+    <span class="q-text">Minikube vs Kind?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Minikube is usually a single-node VM; Kind is multi-node Docker containers.</p>
+    <p><strong>Why it matters:</strong> Minikube simulates traditional VM cluster; Kind is for fast ephemeral testing.</p>
+    <p><strong>Analogy:</strong> Sturdy simulated house vs pop-up tent.</p>
+    <pre><code>minikube start</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">181</span>
+    <span class="q-text">Load local image into Kind?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Manually load image archive because Kind nodes don&#x27;t share host Docker daemon.</p>
+    <p><strong>Why it matters:</strong> Allows testing locally built images without pushing to remote registry.</p>
+    <p><strong>Analogy:</strong> Handing USB drive in secure room.</p>
+    <pre><code>kind load docker-image my-app</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">182</span>
+    <span class="q-text">Expose service in Minikube?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use minikube tunnel or minikube service.</p>
+    <p><strong>Why it matters:</strong> Simulates cloud LoadBalancers locally.</p>
+    <p><strong>Analogy:</strong> Digging temp tunnel from house to mall shop.</p>
+    <pre><code>minikube service my-app</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">183</span>
+    <span class="q-text">Simulate multiple nodes in Kind?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Pass YAML config specifying node roles.</p>
+    <p><strong>Why it matters:</strong> Test node affinity/tolerations locally.</p>
+    <p><strong>Analogy:</strong> Multiple computers on desk via software.</p>
+    <pre><code>kind create cluster --config multi-node.yaml</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">184</span>
+    <span class="q-text">What is K3s/K3d?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Lightweight K8s distros (K3s) run in Docker (K3d).</p>
+    <p><strong>Why it matters:</strong> Perfect for Edge computing or low-resource local dev.</p>
+    <p><strong>Analogy:</strong> Fast motorcycle instead of heavy semi-truck.</p>
+    <pre><code>k3d cluster create</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">185</span>
+    <span class="q-text">Test Ingress locally with Kind?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Map host ports to control-plane node, deploy Ingress Controller.</p>
+    <p><strong>Why it matters:</strong> Simulates real-world traffic routing locally.</p>
+    <p><strong>Analogy:</strong> Mini toll booth in driveway.</p>
+    <pre><code>kubectl apply -f ingress-nginx.yaml</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">186</span>
+    <span class="q-text">Access Minikube dashboard?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Enable dashboard addon and start via CLI.</p>
+    <p><strong>Why it matters:</strong> Visual representation helpful for beginners.</p>
+    <p><strong>Analogy:</strong> Looking at map instead of reading street names.</p>
+    <pre><code>minikube dashboard</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">187</span>
+    <span class="q-text">Clean up Kind cluster?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> kind delete cluster stops/removes containers.</p>
+    <p><strong>Why it matters:</strong> Frees RAM instantly.</p>
+    <p><strong>Analogy:</strong> Shaking Etch-A-Sketch.</p>
+    <pre><code>kind delete cluster</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">188</span>
+    <span class="q-text">Local K8s in CI/CD?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Spin up Kind in CI runner, run e2e tests, destroy.</p>
+    <p><strong>Why it matters:</strong> Disposable high-fidelity testing without static QA cost.</p>
+    <p><strong>Analogy:</strong> Crash-test dummy recycled after one test.</p>
+    <pre><code>uses: helm/kind-action@v1</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">189</span>
+    <span class="q-text">Persist data in Minikube?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Mount host directory into Minikube VM.</p>
+    <p><strong>Why it matters:</strong> Test stateful sets without losing data on restart.</p>
+    <p><strong>Analogy:</strong> Plugging external drive into VM.</p>
+    <pre><code>minikube mount /local:/vm</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">190</span>
+    <span class="q-text">Test Helm charts locally?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use helm install against a local Kind cluster.</p>
+    <p><strong>Why it matters:</strong> Validates K8s manifests render correctly.</p>
+    <p><strong>Analogy:</strong> Test driving a car locally.</p>
+    <pre><code>helm install test ./chart</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">191</span>
+    <span class="q-text">Switch kubectl context to Kind?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Kind automatically updates kubeconfig when creating a cluster.</p>
+    <p><strong>Why it matters:</strong> Connects your local kubectl tool to the local cluster.</p>
+    <p><strong>Analogy:</strong> Plugging your keyboard into a new computer.</p>
+    <pre><code>kubectl config use-context kind-kind</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">192</span>
+    <span class="q-text">Debug crashed pods in Kind?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use kind export logs to dump all node and pod logs.</p>
+    <p><strong>Why it matters:</strong> Vital for diagnosing cluster-level failures.</p>
+    <p><strong>Analogy:</strong> Dumping the black box after a crash.</p>
+    <pre><code>kind export logs ./tmp</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">193</span>
+    <span class="q-text">Use local registry with Kind?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Run a registry container and link it to the Kind cluster network.</p>
+    <p><strong>Why it matters:</strong> Faster image pulling during local iterative dev.</p>
+    <p><strong>Analogy:</strong> Having a local warehouse instead of shipping globally.</p>
+    <pre><code>docker run -d --name registry registry:2</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">194</span>
+    <span class="q-text">Pause Minikube?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use minikube pause to freeze K8s control plane and workers.</p>
+    <p><strong>Why it matters:</strong> Saves battery and CPU without losing cluster state.</p>
+    <p><strong>Analogy:</strong> Putting laptop to sleep.</p>
+    <pre><code>minikube pause</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">195</span>
+    <span class="q-text">Custom Kubernetes version in Kind?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Specify the node image tag corresponding to the K8s version.</p>
+    <p><strong>Why it matters:</strong> Test app compatibility against future or older K8s releases.</p>
+    <p><strong>Analogy:</strong> Running an emulator for an older OS.</p>
+    <pre><code>image: kindest/node:v1.24.0</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="local-k8s">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">196</span>
+    <span class="q-text">What is Docker Desktop K8s?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> A single-node K8s cluster built directly into Docker Desktop.</p>
+    <p><strong>Why it matters:</strong> The easiest way for Mac/Windows users to get started.</p>
+    <p><strong>Analogy:</strong> Pre-installed app on a new phone.</p>
+    <pre><code># Enable in Docker Desktop settings</code></pre>
+  </div>
+</div>
+
+<!-- CATEGORY 17: FastAPI -->
+<div class="category-header" data-category="fastapi">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">FastAPI</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">197</span>
+    <span class="q-text">What is FastAPI?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Modern web framework for APIs in Python based on type hints.</p>
+    <p><strong>Why it matters:</strong> Provides auto-validation and Swagger docs out of the box.</p>
+    <p><strong>Analogy:</strong> Smart assembly line printing manuals automatically.</p>
+    <pre><code>app = FastAPI()</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">198</span>
+    <span class="q-text">Data validation in FastAPI?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Uses Pydantic models to validate incoming JSON.</p>
+    <p><strong>Why it matters:</strong> Eliminates boilerplate and protects against malformed requests.</p>
+    <p><strong>Analogy:</strong> Bouncer with strict dress code.</p>
+    <pre><code>class Item(BaseModel):</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">199</span>
+    <span class="q-text">def vs async def?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> async def runs on event loop (I/O). def runs in threadpool (CPU).</p>
+    <p><strong>Why it matters:</strong> Blocking the event loop freezes the API.</p>
+    <p><strong>Analogy:</strong> Waiter vs hiring more backroom staff.</p>
+    <pre><code>async def get_data():</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">200</span>
+    <span class="q-text">Run a FastAPI app?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Requires an ASGI server like Uvicorn.</p>
+    <p><strong>Why it matters:</strong> ASGI handles thousands of concurrent connections.</p>
+    <p><strong>Analogy:</strong> Engine (FastAPI) vs Transmission (Uvicorn).</p>
+    <pre><code>uvicorn main:app</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">201</span>
+    <span class="q-text">Dependency Injection in FastAPI?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Define a function and declare it as a route parameter; FastAPI executes it.</p>
+    <p><strong>Why it matters:</strong> Modular code, reduces repetition.</p>
+    <p><strong>Analogy:</strong> Concierge handing exact requested map.</p>
+    <pre><code>def get_db(): yield db</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">202</span>
+    <span class="q-text">Background tasks?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Attach a function to BackgroundTasks to run after HTTP response returns.</p>
+    <p><strong>Why it matters:</strong> Doesn&#x27;t block response for slow operations (e.g. emails).</p>
+    <p><strong>Analogy:</strong> Dropping off dry cleaning.</p>
+    <pre><code>bg_tasks.add_task(send_email)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">203</span>
+    <span class="q-text">Secure a FastAPI app?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use OAuth2PasswordBearer to extract/validate JWTs.</p>
+    <p><strong>Why it matters:</strong> Protects endpoints.</p>
+    <p><strong>Analogy:</strong> Passport control.</p>
+    <pre><code>Depends(oauth2_scheme)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">204</span>
+    <span class="q-text">Generate documentation?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Automatically generated based on Pydantic and served at /docs.</p>
+    <p><strong>Why it matters:</strong> Always-accurate interactive playground.</p>
+    <p><strong>Analogy:</strong> Self-updating restaurant menu.</p>
+    <pre><code># Visit /docs</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">205</span>
+    <span class="q-text">Handle CORS?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Add CORSMiddleware with allowed origins.</p>
+    <p><strong>Why it matters:</strong> Prevents browsers blocking cross-domain requests.</p>
+    <p><strong>Analogy:</strong> Checking approved sister-clubs list.</p>
+    <pre><code>app.add_middleware(CORSMiddleware)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">206</span>
+    <span class="q-text">Containerize FastAPI?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Dockerfile with Python base, install reqs, run Uvicorn.</p>
+    <p><strong>Why it matters:</strong> Runs identically everywhere.</p>
+    <p><strong>Analogy:</strong> Packing kitchen in a box.</p>
+    <pre><code>CMD [&quot;uvicorn&quot;, &quot;main:app&quot;]</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">207</span>
+    <span class="q-text">Database integration?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use SQLAlchemy for ORM, inject session via DI.</p>
+    <p><strong>Why it matters:</strong> Standardizes DB access.</p>
+    <p><strong>Analogy:</strong> Librarian fetching books.</p>
+    <pre><code>db: Session = Depends(get_db)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">208</span>
+    <span class="q-text">Path vs Query parameters?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Path is part of URL (/users/{id}); Query is after ? (?skip=20).</p>
+    <p><strong>Why it matters:</strong> Standard RESTful routing.</p>
+    <p><strong>Analogy:</strong> Street address vs specific room number.</p>
+    <pre><code>@app.get(&#x27;/users/{id}&#x27;)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">209</span>
+    <span class="q-text">WebSockets in FastAPI?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Built-in support via @app.websocket.</p>
+    <p><strong>Why it matters:</strong> Enables real-time bidirectional communication.</p>
+    <p><strong>Analogy:</strong> A live phone call vs sending letters.</p>
+    <pre><code>async def websocket_endpoint(ws: WebSocket):</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">210</span>
+    <span class="q-text">Testing FastAPI?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use TestClient (based on httpx) for unit tests.</p>
+    <p><strong>Why it matters:</strong> Ensures API logic works without spinning up real server.</p>
+    <p><strong>Analogy:</strong> Using a flight simulator.</p>
+    <pre><code>client = TestClient(app)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">211</span>
+    <span class="q-text">Exception handling?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use @app.exception_handler to catch custom errors globally.</p>
+    <p><strong>Why it matters:</strong> Returns consistent error JSON formats.</p>
+    <p><strong>Analogy:</strong> A centralized complaint department.</p>
+    <pre><code>raise HTTPException(status_code=404)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">212</span>
+    <span class="q-text">Router prefixing?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use APIRouter to group related endpoints (e.g., /users).</p>
+    <p><strong>Why it matters:</strong> Keeps large codebases organized.</p>
+    <p><strong>Analogy:</strong> Different departments in a store.</p>
+    <pre><code>router = APIRouter(prefix=&#x27;/users&#x27;)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">213</span>
+    <span class="q-text">File uploads?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use UploadFile parameter type.</p>
+    <p><strong>Why it matters:</strong> Handles multipart form data efficiently.</p>
+    <p><strong>Analogy:</strong> A secure drop box for packages.</p>
+    <pre><code>async def create_upload_file(file: UploadFile):</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="fastapi">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">214</span>
+    <span class="q-text">What is Starlette?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> The lightweight ASGI framework FastAPI is built upon.</p>
+    <p><strong>Why it matters:</strong> Provides the core networking/routing performance.</p>
+    <p><strong>Analogy:</strong> The chassis of a race car.</p>
+    <pre><code># Under the hood of FastAPI</code></pre>
+  </div>
+</div>
+
+<!-- CATEGORY 18: Shell Scripting -->
+<div class="category-header" data-category="shell-scripting">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">Shell Scripting</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">215</span>
+    <span class="q-text">set -euo pipefail?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Exits on error, unset variable, or pipe failure.</p>
+    <p><strong>Why it matters:</strong> Prevents silent failures.</p>
+    <p><strong>Analogy:</strong> Assembly line stopping if one machine breaks.</p>
+    <pre><code>set -euo pipefail</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">216</span>
+    <span class="q-text">Check if file exists?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use -f inside test brackets.</p>
+    <p><strong>Why it matters:</strong> Prevents crashing by reading missing files.</p>
+    <p><strong>Analogy:</strong> Checking peephole before opening door.</p>
+    <pre><code>if [[ -f &quot;file.txt&quot; ]]; then</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">217</span>
+    <span class="q-text">$() vs backticks?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> $() is modern POSIX, supports nesting.</p>
+    <p><strong>Why it matters:</strong> Backticks are deprecated and prone to escaping errors.</p>
+    <p><strong>Analogy:</strong> MP3 vs old cassette tape.</p>
+    <pre><code>DATE=$(date)</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">218</span>
+    <span class="q-text">Command-line arguments?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Accessed via $1, $2. $@ for all.</p>
+    <p><strong>Why it matters:</strong> Dynamic reusable scripts.</p>
+    <p><strong>Analogy:</strong> Vending machine buttons.</p>
+    <pre><code>echo &quot;Hello $1&quot;</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">219</span>
+    <span class="q-text">&gt; vs &gt;&gt; for redirection?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> &gt; overwrites, &gt;&gt; appends.</p>
+    <p><strong>Why it matters:</strong> Prevents destroying previous logs.</p>
+    <p><strong>Analogy:</strong> Erasing whiteboard vs adding line to notepad.</p>
+    <pre><code>echo &quot;Log&quot; &gt;&gt; app.log</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">220</span>
+    <span class="q-text">Redirect stderr to stdout?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use 2&gt;&amp;1.</p>
+    <p><strong>Why it matters:</strong> Captures both in a single log file.</p>
+    <p><strong>Analogy:</strong> Joining overflow pipe to main drain.</p>
+    <pre><code>make &gt; build.log 2&gt;&amp;1</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">221</span>
+    <span class="q-text">Single vs double quotes?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Single is literal. Double allows variable expansion.</p>
+    <p><strong>Why it matters:</strong> Controls execution of variables.</p>
+    <p><strong>Analogy:</strong> Polaroid picture vs Green screen projection.</p>
+    <pre><code>echo &quot;$VAR&quot;</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">222</span>
+    <span class="q-text">Loop over files safely?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use file globbing, avoid parsing ls output.</p>
+    <p><strong>Why it matters:</strong> Prevents bugs with spaces in filenames.</p>
+    <p><strong>Analogy:</strong> Picking apples vs dumping basket.</p>
+    <pre><code>for f in *.txt; do</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">223</span>
+    <span class="q-text">What is a HereDoc?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> &lt;&lt;EOF allows passing multi-line string to standard input.</p>
+    <p><strong>Why it matters:</strong> Embedding configs directly in scripts.</p>
+    <p><strong>Analogy:</strong> Sticky note slapped on document.</p>
+    <pre><code>cat &lt;&lt;EOF &gt; config.txt</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">224</span>
+    <span class="q-text">Trap signals?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use trap to catch SIGINT and run cleanup.</p>
+    <p><strong>Why it matters:</strong> Ensures temp files are cleaned up on interruption.</p>
+    <p><strong>Analogy:</strong> Closing time procedure at a store.</p>
+    <pre><code>trap cleanup EXIT</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">225</span>
+    <span class="q-text">Cron expressions?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Schedule tasks: min hour day month dow.</p>
+    <p><strong>Why it matters:</strong> Automates routine maintenance.</p>
+    <p><strong>Analogy:</strong> Setting an alarm clock.</p>
+    <pre><code>0 2 * * * /backup.sh</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">226</span>
+    <span class="q-text">Make a script executable?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> chmod +x script.sh.</p>
+    <p><strong>Why it matters:</strong> Tells Linux the text file is a program.</p>
+    <p><strong>Analogy:</strong> Giving a car the keys.</p>
+    <pre><code>chmod +x run.sh</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">227</span>
+    <span class="q-text">Find/replace text in file?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use sed -i &#x27;s/old/new/g&#x27;.</p>
+    <p><strong>Why it matters:</strong> Automated config updates.</p>
+    <p><strong>Analogy:</strong> Word processor Find &amp; Replace.</p>
+    <pre><code>sed -i &#x27;s/prod/dev/g&#x27; config</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">228</span>
+    <span class="q-text">Extract specific column?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use awk &#x27;{print $2}&#x27;.</p>
+    <p><strong>Why it matters:</strong> Parsing structured logs.</p>
+    <p><strong>Analogy:</strong> Reading only the price column in a catalog.</p>
+    <pre><code>awk &#x27;{print $1}&#x27; log.txt</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">229</span>
+    <span class="q-text">What is a Shebang?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> #!/bin/bash at the top of a file.</p>
+    <p><strong>Why it matters:</strong> Tells OS which interpreter to use.</p>
+    <p><strong>Analogy:</strong> Instruction manual specifying which language it&#x27;s in.</p>
+    <pre><code>#!/usr/bin/env bash</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">230</span>
+    <span class="q-text">Check exit status?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Check $? variable. 0 means success.</p>
+    <p><strong>Why it matters:</strong> Conditional logic based on previous command.</p>
+    <p><strong>Analogy:</strong> Checking if the bank transfer succeeded before shipping.</p>
+    <pre><code>if [ $? -eq 0 ]; then</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">231</span>
+    <span class="q-text">Run command in background?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Append &amp; to command.</p>
+    <p><strong>Why it matters:</strong> Non-blocking execution.</p>
+    <p><strong>Analogy:</strong> Starting the dishwasher while you watch TV.</p>
+    <pre><code>./long_task.sh &amp;</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">232</span>
+    <span class="q-text">Wait for background tasks?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use wait command.</p>
+    <p><strong>Why it matters:</strong> Synchronizes parallel tasks.</p>
+    <p><strong>Analogy:</strong> Waiting for all friends to arrive before leaving.</p>
+    <pre><code>wait $!</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">233</span>
+    <span class="q-text">Math in bash?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use $(( 1 + 1 )).</p>
+    <p><strong>Why it matters:</strong> Basic arithmetic for counters.</p>
+    <p><strong>Analogy:</strong> Pocket calculator.</p>
+    <pre><code>COUNT=$((COUNT+1))</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="shell-scripting">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">234</span>
+    <span class="q-text">Read user input?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Use read command.</p>
+    <p><strong>Why it matters:</strong> Interactive scripts.</p>
+    <p><strong>Analogy:</strong> Cashier asking for your name.</p>
+    <pre><code>read -p &#x27;Name: &#x27; NAME</code></pre>
+  </div>
+</div>
+
+<!-- CATEGORY 19: Linux -->
+<div class="category-header" data-category="linux">
+  <div class="category-icon">🚀</div>
+  <div class="category-title">Linux</div>
+  <div class="category-line"></div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">235</span>
+    <span class="q-text">Purpose of /etc directory?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> System-wide config files.</p>
+    <p><strong>Why it matters:</strong> First place to look to configure services.</p>
+    <p><strong>Analogy:</strong> Settings menu for the server.</p>
+    <pre><code>cat /etc/nginx/nginx.conf</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">236</span>
+    <span class="q-text">Hard vs Soft links?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Hard links to inode; soft links to path.</p>
+    <p><strong>Why it matters:</strong> Symlinks manage multiple versions of software.</p>
+    <p><strong>Analogy:</strong> Two doors to one room vs sticky note directions.</p>
+    <pre><code>ln -s /etc/file /tmp/file</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">237</span>
+    <span class="q-text">Find process on a port?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> lsof -i :port or ss -tulnp.</p>
+    <p><strong>Why it matters:</strong> Troubleshoot &#x27;Address in use&#x27;.</p>
+    <p><strong>Analogy:</strong> Office directory mapping company to suite.</p>
+    <pre><code>lsof -i :8080</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">238</span>
+    <span class="q-text">systemd vs systemctl?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> systemd is the init system; systemctl controls it.</p>
+    <p><strong>Why it matters:</strong> Manage background services.</p>
+    <p><strong>Analogy:</strong> Heart vs pacemaker.</p>
+    <pre><code>systemctl restart nginx</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">239</span>
+    <span class="q-text">View systemd logs?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> journalctl queries binary log data.</p>
+    <p><strong>Why it matters:</strong> Consolidates logs from kernel and services.</p>
+    <p><strong>Analogy:</strong> Digital flight data recorder.</p>
+    <pre><code>journalctl -u kubelet -f</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">240</span>
+    <span class="q-text">OOM Killer?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Kernel kills processes when out of RAM.</p>
+    <p><strong>Why it matters:</strong> Diagnose abrupt application termination.</p>
+    <p><strong>Analogy:</strong> Throwing cargo overboard to save ship.</p>
+    <pre><code>dmesg | grep OOM</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">241</span>
+    <span class="q-text">Change file permissions?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> chmod -R recursively.</p>
+    <p><strong>Why it matters:</strong> Security.</p>
+    <p><strong>Analogy:</strong> Issuing master keys vs view-only passes.</p>
+    <pre><code>chmod -R 755 /var/www</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">242</span>
+    <span class="q-text">What is a zombie process?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Process completed but parent hasn&#x27;t read exit status.</p>
+    <p><strong>Why it matters:</strong> Can exhaust PID table.</p>
+    <p><strong>Analogy:</strong> Guest checked out but not in system.</p>
+    <pre><code>ps aux | grep -w Z</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">243</span>
+    <span class="q-text">top / htop?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Real-time view of system (CPU, RAM, procs).</p>
+    <p><strong>Why it matters:</strong> First tool for slow server.</p>
+    <p><strong>Analogy:</strong> Car dashboard.</p>
+    <pre><code>htop</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">244</span>
+    <span class="q-text">Securely copy files?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> scp or rsync over SSH.</p>
+    <p><strong>Why it matters:</strong> Encrypts transfer.</p>
+    <p><strong>Analogy:</strong> Armored truck vs postcard.</p>
+    <pre><code>scp file user@host:/tmp/</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">245</span>
+    <span class="q-text">Find large files?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> find / -size +1G.</p>
+    <p><strong>Why it matters:</strong> Freeing up disk space.</p>
+    <p><strong>Analogy:</strong> Searching house for heavy boxes.</p>
+    <pre><code>find /var/log -size +500M</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">246</span>
+    <span class="q-text">Check disk space?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> df -h for disks, du -sh for directories.</p>
+    <p><strong>Why it matters:</strong> Prevent outages from full disks.</p>
+    <p><strong>Analogy:</strong> Checking gas gauge.</p>
+    <pre><code>df -h</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">247</span>
+    <span class="q-text">Change ownership?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> chown user:group.</p>
+    <p><strong>Why it matters:</strong> Allows specific processes to access files.</p>
+    <p><strong>Analogy:</strong> Transferring the deed to a house.</p>
+    <pre><code>chown -R nginx:nginx /var/www</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="beginner" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">248</span>
+    <span class="q-text">Read end of a file?</span>
+    <span class="q-tags"><span class="tag tag-beginner">Beginner</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> tail -f follows appending file.</p>
+    <p><strong>Why it matters:</strong> Watching live logs.</p>
+    <p><strong>Analogy:</strong> Reading ticker tape.</p>
+    <pre><code>tail -f app.log</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="intermediate" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">249</span>
+    <span class="q-text">Tar archive?</span>
+    <span class="q-tags"><span class="tag tag-intermediate">Intermediate</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> tar -czvf to compress, -xzvf to extract.</p>
+    <p><strong>Why it matters:</strong> Packaging logs/configs for transport.</p>
+    <p><strong>Analogy:</strong> Vacuum packing clothes.</p>
+    <pre><code>tar -czvf backup.tar.gz /etc/</code></pre>
+  </div>
+</div>
+
+<div class="qa-card" data-tags="advanced" data-category="linux">
+  <button class="question-btn" onclick="toggle(this)">
+    <span class="q-num">250</span>
+    <span class="q-text">What is /proc?</span>
+    <span class="q-tags"><span class="tag tag-advanced">Advanced</span></span>
+    <span class="chevron">▼</span>
+  </button>
+  <div class="answer-wrap">
+    <p><strong>Explanation:</strong> Virtual filesystem providing kernel and process info.</p>
+    <p><strong>Why it matters:</strong> Troubleshooting internals.</p>
+    <p><strong>Analogy:</strong> Reading the mind of the OS.</p>
+    <pre><code>cat /proc/cpuinfo</code></pre>
+  </div>
+</div>
+
 <div class="empty-state" id="emptyState">No questions match your search.</div>
 
 </main>
@@ -1525,7 +4624,7 @@
 
   // Staggered animation
   document.querySelectorAll('.qa-card').forEach((card, i) => {
-    card.style.animationDelay = (i * 0.02) + 's';
+    card.style.animationDelay = (Math.min(i, 50) * 0.02) + 's';
   });
 </script>
 
